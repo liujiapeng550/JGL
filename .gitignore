@@ -1,0 +1,25 @@
+################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/JGL_MeshLoader/Debug
+/JGL_MeshLoader/.vs/JGL_MeshLoader/v16
+/JGL_MeshLoader/x64/Debug
+/JGL_MeshLoader/libs/assimp/assimpd.exp
+/JGL_MeshLoader/libs/assimp/unit.exp
+/JGL_MeshLoader/libs/assimp/unit.lib
+/JGL_MeshLoader/.vs/JGL_Projects/v16
+/x64/Debug
+STB_IMAGE/x64/Debug/STB_IMAGE.Build.CppClean.log
+STB_IMAGE/x64/Debug/STB_IMAGE.lib.recipe
+STB_IMAGE/x64/Debug/STB_IMAGE.log
+STB_IMAGE/x64/Debug/stb_image.obj
+STB_IMAGE/x64/Debug/STB_IMAGE.vcxproj.FileListAbsolute.txt
+STB_IMAGE/x64/Debug/STB_IMAGE.tlog/CL.command.1.tlog
+STB_IMAGE/x64/Debug/STB_IMAGE.tlog/CL.read.1.tlog
+STB_IMAGE/x64/Debug/STB_IMAGE.tlog/CL.write.1.tlog
+STB_IMAGE/x64/Debug/STB_IMAGE.tlog/Lib.command.1.tlog
+STB_IMAGE/x64/Debug/STB_IMAGE.tlog/Lib-link.read.1.tlog
+STB_IMAGE/x64/Debug/STB_IMAGE.tlog/Lib-link.write.1.tlog
+STB_IMAGE/x64/Debug/STB_IMAGE.tlog/STB_IMAGE.lastbuildstate
