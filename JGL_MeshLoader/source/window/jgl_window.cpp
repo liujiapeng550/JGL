@@ -21,7 +21,8 @@ namespace nwindow
 
     mPropertyPanel->set_mesh_load_callback(
       [this](std::string filepath) { mSceneView->load_mesh(filepath); });
-
+    mPropertyPanel->set_shader_load_callback(
+        [this](std::string filepath) { mSceneView->load_shader(filepath); });
     return mIsRunning;
   }
 

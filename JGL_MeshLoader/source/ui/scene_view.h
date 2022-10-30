@@ -39,6 +39,8 @@ namespace nui
 
     void load_mesh(const std::string& filepath);
 
+    void load_shader(const std::string& filepath);
+
     void set_mesh(std::shared_ptr<nelems::Mesh> mesh)
     {
       mMesh = mesh;

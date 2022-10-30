@@ -33,7 +33,8 @@ namespace ImGui
     class FileBrowser
     {
     public:
-
+        std::string get_FileBrower_title();
+        
         // pwd is set to current working directory by default
         explicit FileBrowser(ImGuiFileBrowserFlags flags = 0);
 
@@ -142,6 +143,11 @@ namespace ImGui
         std::unique_ptr<std::array<char, INPUT_NAME_BUF_SIZE>> newDirNameBuf_;
     };
 } // namespace ImGui
+
+inline std::string ImGui::FileBrowser::get_FileBrower_title()
+{
+    return title_;
+}
 
 inline ImGui::FileBrowser::FileBrowser(ImGuiFileBrowserFlags flags)
        : width_(700), height_(450), flags_(flags),
@@ -461,9 +467,12 @@ inline void ImGui::FileBrowser::Display()
     SameLine();
 
     int escIdx = GetIO().KeyMap[ImGuiKey_Escape];
-    if(Button(cancel_.c_str()) || closeFlag_ ||
-        ((flags_ & ImGuiFileBrowserFlags_CloseOnEsc) && IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows) && escIdx >= 0 && IsKeyPressed(escIdx)))
+    if (Button(cancel_.c_str()) || closeFlag_ ||
+        ((flags_ & ImGuiFileBrowserFlags_CloseOnEsc) && IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows)
+            && escIdx >= 0 && IsKeyPressed(escIdx))) {
         CloseCurrentPopup();
+    }
+
 
     if(!statusStr_.empty() && !(flags_ & ImGuiFileBrowserFlags_NoStatusBar))
     {

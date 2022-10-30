@@ -31,7 +31,20 @@ namespace nui
     
     mMesh->load(filepath);
     
+  }
 
+  void SceneView::load_shader(const std::string& filepath)
+  {
+      //if (!mShader)
+      //    mShader = std::make_unique<nshaders::Shader>();
+      std::string shadername;
+      size_t found = filepath.find_last_of('.');
+      if (found != std::string::npos)
+      {
+          shadername = filepath.substr(0, found);
+      }
+       //shadername = 
+      mShader = std::make_unique<nshaders::Shader>("shaders/vs.shader", "shaders/fs_pbr.shader");
   }
 
   void SceneView::render()

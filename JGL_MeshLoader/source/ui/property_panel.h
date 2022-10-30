@@ -17,8 +17,8 @@ namespace nui
     {
       mCurrentFile = "< ... >";
 
-      mFileDialog.SetTitle("Open mesh");
-      mFileDialog.SetFileFilters({ ".fbx", ".obj" });
+      //mFileDialog.SetTitle("Open mesh");
+      //mFileDialog.SetFileFilters({ ".fbx", ".obj" });
     }
 
     void render(nui::SceneView* mScene);
@@ -28,11 +28,17 @@ namespace nui
       mMeshLoadCallback = callback;
     }
 
+    void set_shader_load_callback(const std::function<void(const std::string&)>& callback)
+    {
+        mShaderLoadCallback = callback;
+    }
+
   private:
     // create a file browser instance
     ImGui::FileBrowser mFileDialog;
 
     std::function<void(const std::string&)> mMeshLoadCallback;
+    std::function<void(const std::string&)> mShaderLoadCallback;
 
     std::string mCurrentFile;
 
