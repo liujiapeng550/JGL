@@ -39,7 +39,10 @@ namespace nui
       ImGui::ColorPicker3("Color", (float*)&mesh->mColor, ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_DisplayRGB); 
       ImGui::SliderFloat("Roughness", &mesh->mRoughness, 0.0f, 1.0f);
       ImGui::SliderFloat("Metallic", &mesh->mMetallic, 0.0f, 1.0f);
-      static char basetexture[128] = "E:\\GitHubDemo\\jgl_demos\\JGL_MeshLoader\\resource\\textures\\weather\\color.png";
+      //mesh->mBaseTexture = "/resource/textures/weather/color.png";
+
+      static char basetexture[128];
+      strcpy(basetexture, mesh->mBaseTexture.c_str());
       if (ImGui::InputText("BaseTexure", &basetexture[0], (int)(sizeof(basetexture) / sizeof(*(basetexture))))) 
       {
           mesh->mbaseTexture_id = TextureSystem::getTextureId(basetexture);

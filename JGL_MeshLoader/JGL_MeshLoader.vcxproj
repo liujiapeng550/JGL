@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LibraryPath>E:\GitHubDemo\jgl_demos\JGL_MeshLoader\libs\assimp;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -94,7 +94,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(ProjectDir)\libs\gl;$(ProjectDir)\libs\glfw;$(ProjectDir)\libs\assimp;$(ProjectDir)\libs\stb_image;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)libs\gl;$(ProjectDir)libs\glfw;$(ProjectDir)libs\assimp;$(ProjectDir)libs\stb_image;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;assimp-vc142-mtd.lib;STB_IMAGE.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -217,6 +217,8 @@
     <None Include="resource\node-move-on-plane-demo-scene.fbx" />
     <None Include="shaders\fs.shader" />
     <None Include="shaders\fs_pbr.shader" />
+    <None Include="shaders\texture_fs.shader" />
+    <None Include="shaders\texture_vs.shader" />
     <None Include="shaders\vs.shader" />
     <None Include="source\3rdparty\plugins\imgui\LICENSE" />
   </ItemGroup>

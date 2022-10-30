@@ -9,61 +9,61 @@
 
 namespace nelems
 {
-  class Mesh : public Element
-  {
-    
-  public:
+	class Mesh : public Element
+	{
 
-    Mesh() = default;
+	public:
 
-    virtual ~Mesh();
+		Mesh() = default;
 
-    bool load(const std::string& filepath);
+		virtual ~Mesh();
 
-    void add_vertex(const VertexHolder& vertex) { mVertices.push_back(vertex);  }
+		bool load(const std::string& filepath);
 
-    void add_vertex_index(unsigned int vertex_idx) { mVertexIndices.push_back(vertex_idx); }
+		void add_vertex(const VertexHolder& vertex) { mVertices.push_back(vertex); }
 
-    std::vector<unsigned int> get_vertex_indices() { return mVertexIndices; }
+		void add_vertex_index(unsigned int vertex_idx) { mVertexIndices.push_back(vertex_idx); }
 
-    void update(nshaders::Shader* shader) override
-    {
-      // pbr color
-      //shader->set_vec3(mColor, "albedo");
-      shader->set_texture(GL_TEXTURE0,GL_TEXTURE_2D, mbaseTexture_id);
-      shader->set_f1(mRoughness, "roughness");
-      shader->set_f1(mMetallic, "metallic");
-      shader->set_f1(1.0f, "ao");
-    }
-    
-    glm::vec3 mColor = { 1.0f, 0.0f, 0.0f };
-    float mRoughness = 0.2f;
-    float mMetallic = 0.1f;
-    std::string mBaseTexture;
-    unsigned int mbaseTexture_id;
+		std::vector<unsigned int> get_vertex_indices() { return mVertexIndices; }
 
-    void init();
+		void update(nshaders::Shader* shader) override
+		{
+			// pbr color
+			//shader->set_vec3(mColor, "albedo");
+			shader->set_texture(GL_TEXTURE0, GL_TEXTURE_2D, mbaseTexture_id);
+			shader->set_f1(mRoughness, "roughness");
+			shader->set_f1(mMetallic, "metallic");
+			shader->set_f1(1.0f, "ao");
+		}
 
-    void create_buffers();
+		glm::vec3 mColor = { 1.0f, 0.0f, 0.0f };
+		float mRoughness = 0.2f;
+		float mMetallic = 0.1f;
+		std::string mBaseTexture = "resource/textures/weather/color.png";;
+		unsigned int mbaseTexture_id;
 
-    void delete_buffers();
+		void init();
 
-    void render();
+		void create_buffers();
 
-    void bind();
+		void delete_buffers();
 
-    void unbind();
+		void render();
 
-  private:
-    
-    // Buffers manager
-    std::unique_ptr<nrender::VertexIndexBuffer> mRenderBufferMgr;
-    
-    // Vertices and indices
-    std::vector<VertexHolder> mVertices;
-    std::vector<unsigned int> mVertexIndices;
+		void bind();
+
+		void unbind();
+
+	private:
+
+		// Buffers manager
+		std::unique_ptr<nrender::VertexIndexBuffer> mRenderBufferMgr;
+
+		// Vertices and indices
+		std::vector<VertexHolder> mVertices;
+		std::vector<unsigned int> mVertexIndices;
 
 
-  };
+	};
 }
 
