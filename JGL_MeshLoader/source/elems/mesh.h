@@ -31,16 +31,26 @@ namespace nelems
 			// pbr color
 			shader->set_vec3(mColor, "color");
 			shader->set_texture(GL_TEXTURE0, GL_TEXTURE_2D, mbaseTexture_id);
+			shader->set_texture(GL_TEXTURE1, GL_TEXTURE_2D, mbumpTexture_id);
+			shader->set_texture(GL_TEXTURE2, GL_TEXTURE_2D, normalTexture_id);
 			shader->set_f1(mRoughness, "roughness");
 			shader->set_f1(mMetallic, "metallic");
 			shader->set_f1(1.0f, "ao");
+			shader->set_f1((float)glfwGetTime(), "time");
+			shader->set_vec3(mRiverParame01, "_RiverParam01");
+			
 		}
 
 		glm::vec3 mColor = { 1.0f, 0.0f, 0.0f };
 		float mRoughness = 0.2f;
 		float mMetallic = 0.1f;
-		std::string mBaseTexture = "resource/textures/weather/color.png";;
+		glm::vec3 mRiverParame01 = { 1.0,1.0,1.0 };
+		std::string mBaseTexture = "resource/textures/weather/color.png";
+		std::string mbumpTexture = "resource/textures/weather/scene_cover/water_bump_map.png";
+		std::string normalTexture = "resource/textures/weather/normal.png";
 		unsigned int mbaseTexture_id;
+		unsigned int mbumpTexture_id;
+		unsigned int normalTexture_id;
 
 		void init();
 

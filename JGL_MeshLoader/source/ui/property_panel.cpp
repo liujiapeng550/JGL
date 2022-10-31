@@ -47,6 +47,13 @@ namespace nui
       {
           mesh->mbaseTexture_id = TextureSystem::getTextureId(basetexture);
       }
+      strcpy(basetexture, mesh->mbumpTexture.c_str());
+      if (ImGui::InputText("waterbumpMap", &basetexture[0], (int)(sizeof(basetexture) / sizeof(*(basetexture)))))
+      {
+          mesh->mbumpTexture_id = TextureSystem::getTextureId(basetexture);
+      }
+
+      nimgui::draw_vec3_widget("RiverParam01", mesh->mRiverParame01, 80.0f);
     }
 
     if (ImGui::CollapsingHeader("Light"))

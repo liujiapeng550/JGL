@@ -51,7 +51,9 @@ namespace nui
   void SceneView::render()
   {
     mShader->use();
-    mShader->set_i1(GL_TEXTURE0,"baseMap");
+    mShader->set_i1(0, "baseMap");
+    mShader->set_i1(1, "waterbumpMap");
+    mShader->set_i1(2, "bumpMap");
 
     mLight->update(mShader.get());
 
