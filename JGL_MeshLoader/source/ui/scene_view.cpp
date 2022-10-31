@@ -38,13 +38,14 @@ namespace nui
       //if (!mShader)
       //    mShader = std::make_unique<nshaders::Shader>();
       std::string shadername;
-      size_t found = filepath.find_last_of('.');
+      size_t found = filepath.find_last_of('_');
       if (found != std::string::npos)
       {
           shadername = filepath.substr(0, found);
       }
-       //shadername = 
-      mShader = std::make_unique<nshaders::Shader>("shaders/vs.shader", "shaders/fs_pbr.shader");
+      std::string vsname = shadername + "_vs.shader";
+      std::string fsname = shadername + "_fs.shader";
+      mShader = std::make_unique<nshaders::Shader>(vsname.c_str(), fsname.c_str());
   }
 
   void SceneView::render()

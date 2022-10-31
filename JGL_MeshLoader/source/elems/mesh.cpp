@@ -31,7 +31,6 @@ namespace nelems
       aiProcess_GenUVCoords |
       aiProcess_OptimizeMeshes |
       aiProcess_ValidateDataStructure;
-    //mbaseTexture_id = TextureSystem::getTextureId("D:/gitDeom/jgl/JGL_MeshLoader/resource/textures/weather/color.png");
     char texture[128];
     strcpy(texture, mBaseTexture.c_str());
     mbaseTexture_id = TextureSystem::getTextureId(texture);

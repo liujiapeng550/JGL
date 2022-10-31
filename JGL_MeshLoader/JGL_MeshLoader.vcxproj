@@ -216,10 +216,10 @@
     <None Include="libs\assimp\LICENSE" />
     <None Include="resource\node-move-on-plane-demo-scene.fbx" />
     <None Include="shaders\fs.shader" />
-    <None Include="shaders\fs_pbr.shader" />
+    <None Include="shaders\pbr_fs.shader" />
     <None Include="shaders\texture_fs.shader" />
     <None Include="shaders\texture_vs.shader" />
-    <None Include="shaders\vs.shader" />
+    <None Include="shaders\pbr_vs.shader" />
     <None Include="source\3rdparty\plugins\imgui\LICENSE" />
   </ItemGroup>
   <ItemGroup>
