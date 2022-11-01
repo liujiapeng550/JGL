@@ -44,10 +44,10 @@ namespace nelems
 		glm::vec3 mColor = { 1.0f, 0.0f, 0.0f };
 		float mRoughness = 0.2f;
 		float mMetallic = 0.1f;
-		glm::vec3 mRiverParame01 = { 1.0,1.0,1.0 };
-		std::string mBaseTexture = "resource/textures/weather/color.png";
+		glm::vec3 mRiverParame01 = { 5.0,0.1,1.0 };
+		std::string mBaseTexture = "resource/textures/weather/base.png";
 		std::string mbumpTexture = "resource/textures/weather/scene_cover/water_bump_map.png";
-		std::string normalTexture = "resource/textures/weather/normal.png";
+		std::string normalTexture = "resource/textures/weather/scene_cover/droplet_tex.png";
 		unsigned int mbaseTexture_id;
 		unsigned int mbumpTexture_id;
 		unsigned int normalTexture_id;

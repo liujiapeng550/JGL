@@ -2,7 +2,7 @@
 
 #include <string>
 #include <cstdlib>
-const char* logl_root = "D:/gitDeom/jgl";
+const char* logl_root = "E:/GitHubDemo/jgl";
 
 class FileSystem
 {

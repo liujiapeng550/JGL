@@ -53,7 +53,7 @@ namespace nui
     mShader->use();
     mShader->set_i1(0, "baseMap");
     mShader->set_i1(1, "waterbumpMap");
-    mShader->set_i1(2, "bumpMap");
+    mShader->set_i1(2, "RippleTexture");
 
     mLight->update(mShader.get());
 
