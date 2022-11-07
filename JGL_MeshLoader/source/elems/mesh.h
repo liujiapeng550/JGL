@@ -35,6 +35,7 @@ namespace nelems
 			shader->set_texture(GL_TEXTURE2, GL_TEXTURE_2D, normalTexture_id);
 			shader->set_f1(mRoughness, "roughness");
 			shader->set_f1(mMetallic, "metallic");
+			shader->set_f1(mRippleSize, "_RippleSize");
 			shader->set_f1(1.0f, "ao");
 			shader->set_f1((float)glfwGetTime(), "time");
 			shader->set_vec3(mRiverParame01, "_RiverParam01");
@@ -44,6 +45,7 @@ namespace nelems
 		glm::vec3 mColor = { 1.0f, 0.0f, 0.0f };
 		float mRoughness = 0.2f;
 		float mMetallic = 0.1f;
+		float mRippleSize = 5.f;
 		glm::vec3 mRiverParame01 = { 5.0,0.1,1.0 };
 		std::string mBaseTexture = "resource/textures/weather/base.png";
 		std::string mbumpTexture = "resource/textures/weather/scene_cover/water_bump_map.png";

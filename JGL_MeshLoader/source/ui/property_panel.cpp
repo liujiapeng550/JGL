@@ -39,6 +39,7 @@ namespace nui
       ImGui::ColorPicker3("Color", (float*)&mesh->mColor, ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_DisplayRGB); 
       ImGui::SliderFloat("Roughness", &mesh->mRoughness, 0.0f, 1.0f);
       ImGui::SliderFloat("Metallic", &mesh->mMetallic, 0.0f, 1.0f);
+      ImGui::SliderFloat("_RippleSize", &mesh->mRippleSize, 0.0f, 20.0f);
       //mesh->mBaseTexture = "/resource/textures/weather/color.png";
 
       static char basetexture[128];
