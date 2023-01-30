@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -116,6 +116,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>D:\gitDemo\jgl\JGL_MeshLoader\source\utils\pugixml\src;D:\gitDemo\jgl\JGL_MeshLoader\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,6 +141,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Xml Include="material.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="material.h" />
+    <ClInclude Include="param.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\JGL_MeshLoader\source\utils\pugixml\src\pugixml.cpp" />
+    <ClCompile Include="..\JGL_MeshLoader\source\utils\pugixml\src\pugixpath.cpp" />
+    <ClCompile Include="material.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="readme.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,0 +1,3 @@
+﻿  material.cpp
+D:\gitDemo\jgl\ShaderCompiler\material.h(8,47): warning C4042: “filePath”: 有坏的存储类
+  ShaderCompiler.vcxproj -> D:\gitDemo\jgl\x64\Debug\ShaderCompiler.exe

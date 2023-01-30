@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="gb2312"?>
-<Jap>
-	<Surface>
-		<LightingModel DefaultName="Isotropy" ConfigurableList="Isotropy" />
-		<Code File="shader\built_in\surf\basic.hlsl" />
-		<Resources />
-		<RasterizerAndBlend BlendMode="OPAQUE" CullMode="Back" />
-		<Macro>
-			<Param Name="SHADER_LOCAL_OFFSET" UiLabel="SHADER_LOCAL_OFFSET" UiControl="BoolPicker" Default="FALSE" Editable="FALSE" />
-			<Param Name="SHADER_WORLD_OFFSET" UiLabel="SHADER_WORLD_OFFSET" UiControl="BoolPicker" Default="FALSE" Editable="FALSE" />
-		</Macro>
-		<Resources>
-			<Param Name="TerraTex0" Type="Texture" UiLabel="HeightMap1" UiControl="FilePicker" Default="black" />
-		</Resources>
-	</Surface>
-</Jap>
+<Materia>
+		<Params>
+			<Param Name="color" Type="float3" Value ="1.0,1.0,1.0" UiLabel="Color"  Default="FALSE" Editable="FALSE" />
+      <Param Name="roughness" Type="float" Value ="1.0" UiLabel="Roughness"  Default="FALSE" Editable="FALSE" />
+      <Param Name="metallic" Type="float"  Value ="1.0" UiLabel="Metallic"  Default="FALSE" Editable="FALSE" />
+		</Params>
+</Materia>
