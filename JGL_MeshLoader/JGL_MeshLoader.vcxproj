@@ -217,6 +217,8 @@
     <None Include="resource\node-move-on-plane-demo-scene.fbx" />
     <None Include="shaders\fs.shader" />
     <None Include="shaders\pbr_fs.shader" />
+    <None Include="shaders\river_fs.shader" />
+    <None Include="shaders\river_vs.shader" />
     <None Include="shaders\texture_fs.shader" />
     <None Include="shaders\texture_vs.shader" />
     <None Include="shaders\pbr_vs.shader" />

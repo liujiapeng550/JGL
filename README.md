@@ -1,9 +1,14 @@
 # JGL Demos
-Modern OpenGL C++ samples
 
-To compile the project you can use VS 2019 and above.
+日常学习shader使用项目
 
-You also have to link GLFW, Glew, GLM, Assimp and ImGUI
+1. 模拟2d天气效果
+
+2. 星空效果
+
+3. LUT shader
+
+
 
 Glew:
 http://glew.sourceforge.net/
