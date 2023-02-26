@@ -6,7 +6,8 @@ in vec2 TexCoord;
 
 // texture sampler
 uniform sampler2D baseMap;
-uniform sampler2D waterbumpMap;// 河流的法线贴图
+// 河流的法线贴图
+uniform sampler2D waterbumpMap;
 uniform float time;
 uniform vec3 _RiverParam01;//x:normal 水面的uv缩放 y:水面流动速度 z:水面法线uv缩放效果
 
