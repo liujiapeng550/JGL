@@ -38,7 +38,8 @@ namespace nelems
     mbumpTexture_id = TextureSystem::getTextureId(texture);
     strcpy(texture, normalTexture.c_str());
     normalTexture_id = TextureSystem::getTextureId(texture);
-
+    strcpy(texture, nosieTexture.c_str());
+    furTexture_id = TextureSystem::getTextureId(texture);
     Assimp::Importer Importer;
 
     const aiScene* pScene = Importer.ReadFile(filepath.c_str(),

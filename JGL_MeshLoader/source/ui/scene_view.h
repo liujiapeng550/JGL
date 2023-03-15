@@ -36,6 +36,7 @@ namespace nui
 
 
     void render();
+    void renderFur();
 
     void load_mesh(const std::string& filepath);
 
@@ -64,6 +65,7 @@ namespace nui
     std::unique_ptr<nelems::Light> mLight;
     std::shared_ptr<nelems::Mesh> mMesh;
     glm::vec2 mSize;
+    std::string m_shadername;
   };
 }
 

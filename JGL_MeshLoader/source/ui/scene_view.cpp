@@ -45,7 +45,18 @@ namespace nui
       }
       std::string vsname = shadername + "_vs.shader";
       std::string fsname = shadername + "_fs.shader";
+      size_t shaderName_index = filepath.find_last_of('\\');
+      m_shadername = shadername.substr(shaderName_index + 1,-1);
       mShader = std::make_unique<nshaders::Shader>(vsname.c_str(), fsname.c_str());
+  }
+
+  void SceneView::renderFur()
+  {
+      for (int i = 0; i < 10; i += 1) {
+
+          mMesh->updateFur(mShader.get(),i);
+          mMesh->render();
+      }
   }
 
   void SceneView::render()
@@ -54,6 +65,7 @@ namespace nui
     mShader->set_i1(0, "baseMap");
     mShader->set_i1(1, "waterbumpMap");
     mShader->set_i1(2, "RippleTexture");
+    mShader->set_i1(3, "RippleTexture");
 
     mLight->update(mShader.get());
 
@@ -61,8 +73,15 @@ namespace nui
 
     if (mMesh)
     {
-      mMesh->update(mShader.get());
-      mMesh->render();
+        if (m_shadername == "fur") {
+            mMesh->update(mShader.get());
+            renderFur();
+        }
+        else
+        {
+            mMesh->update(mShader.get());
+            mMesh->render();
+        }
     }
     else {
         load_mesh(FileSystem::getPath("JGL_MeshLoader/resource/plane.fbx"));

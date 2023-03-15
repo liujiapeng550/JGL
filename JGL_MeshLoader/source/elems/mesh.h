@@ -41,6 +41,16 @@ namespace nelems
 			shader->set_vec3(mRiverParame01, "_RiverParam01");
 			
 		}
+		void updateFur(nshaders::Shader* shader,int i)
+		{
+			m_furlayer = float(i + 1) / 10;
+			m_furlength = 10 * m_furlayer;
+			shader->set_f1(m_furlength, "FurLength");
+			shader->set_f1(m_furlayer, "Layer");
+			shader->set_vec3(m_gravity, "vGravity");
+			shader->set_f1(m_uvScale, "UVScale");
+			shader->set_texture(GL_TEXTURE3, GL_TEXTURE_2D, furTexture_id);
+		}	
 
 		glm::vec3 mColor = { 1.0f, 0.0f, 0.0f };
 		float mRoughness = 0.2f;
@@ -50,10 +60,15 @@ namespace nelems
 		std::string mBaseTexture = "resource/textures/weather/base.png";
 		std::string mbumpTexture = "resource/textures/weather/water_bump_map.png";
 		std::string normalTexture = "resource/textures/weather/droplet_tex.png";
+		std::string nosieTexture = "resource/textures/weather/nosie.png";
 		unsigned int mbaseTexture_id;
 		unsigned int mbumpTexture_id;
 		unsigned int normalTexture_id;
-
+		unsigned int furTexture_id;
+		float m_furlength;
+		float m_furlayer;
+		glm::vec3 m_gravity;
+		float m_uvScale;
 		void init();
 
 		void create_buffers();
