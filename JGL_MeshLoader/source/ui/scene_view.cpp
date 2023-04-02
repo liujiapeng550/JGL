@@ -3,7 +3,7 @@
 
 #include "imgui.h"
 #include "utils/filesystem.h"
-
+//#include "elems/material.h"
 namespace nui
 {
   void SceneView::resize(int32_t width, int32_t height)
@@ -58,6 +58,10 @@ namespace nui
           mMesh->render();
       }
   }
+  void render2()
+  {
+
+  }
 
   void SceneView::render()
   {
@@ -76,6 +80,8 @@ namespace nui
         if (m_shadername == "fur") {
             mMesh->update(mShader.get());
             renderFur();
+            //Material ins = Material("JGL_MeshLoader/resource/example.xml");
+            //ins.update_shader_params(mShader.get());
         }
         else
         {

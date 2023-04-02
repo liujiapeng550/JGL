@@ -75,6 +75,8 @@ namespace nelems
     return false;
   }
 
+
+
   void Mesh::create_buffers()
   {
     mRenderBufferMgr->create_buffers(mVertices, mVertexIndices);

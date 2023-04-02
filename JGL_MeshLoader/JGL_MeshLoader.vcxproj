@@ -133,6 +133,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\elems\material.cpp" />
+    <ClCompile Include="source\elems\tinyxml2.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="source\ui\scene_view.cpp" />
     <ClCompile Include="source\ui\property_panel.cpp" />
     <ClCompile Include="source\render\opengl_context.cpp" />
@@ -184,6 +188,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\3rdparty\plugins\imgui\ImFileBrowser.h" />
+    <ClInclude Include="source\elems\material.h" />
+    <ClInclude Include="source\elems\tinyxml2.h" />
     <ClInclude Include="source\utils\filesystem.h" />
     <ClInclude Include="source\utils\imgui_widgets.h" />
     <ClInclude Include="source\ui\scene_view.h" />
@@ -231,6 +237,9 @@
   <ItemGroup>
     <Text Include="include\glm\License.txt" />
     <Text Include="source\3rdparty\imgui\LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="resource\example.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

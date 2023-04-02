@@ -1,0 +1,24 @@
+<Material 
+  name =" Fur"
+  multipass ="True">
+  <Param
+    Name ="FurNoiseTex"
+    Type ="Texture"
+    Default ="white"
+  />
+  <Param
+   Name ="FurLength"
+   Type ="float"
+   Default ="0.0"
+  />
+  <Param
+    Name ="Layer"
+    Type ="float"
+    Default ="0.0"
+  />
+  <Param
+    Name ="vGravity"
+    Type ="float3"
+    Default ="1.0,1.0,1.0"
+  />
+</Material>

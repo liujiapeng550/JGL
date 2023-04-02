@@ -2,7 +2,7 @@
 
 #include <string>
 #include <cstdlib>
-const char* logl_root = "D:/gitDemo/jgl";
+const char* logl_root = "D:/gitDeom/JGL";
 //D:\gitDeom\jgl\JGL_MeshLoader\source\utils
 
 class FileSystem

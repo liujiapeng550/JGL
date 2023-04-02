@@ -19,6 +19,7 @@ namespace nelems
 		virtual ~Mesh();
 
 		bool load(const std::string& filepath);
+		bool loadTexture();
 
 		void add_vertex(const VertexHolder& vertex) { mVertices.push_back(vertex); }
 
@@ -48,7 +49,6 @@ namespace nelems
 			shader->set_f1(m_furlength, "FurLength");
 			shader->set_f1(m_furlayer, "Layer");
 			shader->set_vec3(m_gravity, "vGravity");
-			shader->set_f1(m_uvScale, "UVScale");
 			shader->set_texture(GL_TEXTURE3, GL_TEXTURE_2D, furTexture_id);
 		}	
 
