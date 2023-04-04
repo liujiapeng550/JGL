@@ -3,7 +3,6 @@
 
 #include "imgui.h"
 #include "utils/filesystem.h"
-//#include "elems/material.h"
 namespace nui
 {
   void SceneView::resize(int32_t width, int32_t height)
@@ -35,13 +34,13 @@ namespace nui
 
   void SceneView::load_shader(const std::string& filepath)
   {
-      //if (!mShader)
-      //    mShader = std::make_unique<nshaders::Shader>();
+      mMaterial->load(filepath.c_str());
       std::string shadername;
-      size_t found = filepath.find_last_of('_');
+      shadername = mMaterial->getshaderPath();
+      size_t found = shadername.find_last_of('_');
       if (found != std::string::npos)
       {
-          shadername = filepath.substr(0, found);
+          shadername = shadername.substr(0, found);
       }
       std::string vsname = shadername + "_vs.shader";
       std::string fsname = shadername + "_fs.shader";
@@ -78,10 +77,15 @@ namespace nui
     if (mMesh)
     {
         if (m_shadername == "fur") {
-            mMesh->update(mShader.get());
-            renderFur();
-            //Material ins = Material("JGL_MeshLoader/resource/example.xml");
-            //ins.update_shader_params(mShader.get());
+            //mMesh->update(mShader.get());
+            //renderFur();
+           // if (mMultipass) {
+
+                for (int i = 0; i < 10; i += 1) {
+                    mMaterial->set_param("FurLength", "float", to_string(i));
+                    mMaterial->update_shader_params(mShader.get());
+                }
+           // }
         }
         else
         {

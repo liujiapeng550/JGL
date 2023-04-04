@@ -1,4 +1,4 @@
-
+#pragma
 #include <iostream>
 #include <string>
 #include <vector>
@@ -20,29 +20,18 @@ public:
 	string value;
 };
 
-class Param {
-public:
+struct Param {
 	string name;
 	string type;
 	string defaultValue;
 	bool multipass;
 };
-glm::vec3 StringtoFloat3(std::string str)
-{
-	istringstream iss(str);
-	string token;
-	vector<string> tmp;
-	while (getline(iss, token, ','))
-	{
-		tmp.push_back(token);
-	}
-	glm::vec3 res{ stof(tmp[0]),stof(tmp[1]),stof(tmp[2]) };
-	return res;
-}
+
 
 class Material {
 public:
-	Material(const char* xmlPath);
+	Material() :name(""), params() {}
+	void load(const char* xmlPath);
 	void print() {
 		cout << "Name: " << name << endl;
 		for (const auto& param : params) {
@@ -53,7 +42,9 @@ public:
 	}
 	bool update_shader_params(nshaders::Shader* shader);
 	bool set_param(string name,string trye,string value);
-
+	glm::vec3 StringtoFloat3(std::string str);
+	string getshaderPath() { return mshader_path; }
+	string mName;
 private:
 	vector<Param> params;
 	string name;
@@ -61,9 +52,10 @@ private:
 	map<string, float> mFloat_map;
 	map<string, glm::vec3> mFloat3_map;
 	bool mMultipass=false;
+	string mshader_path;
 };
 
-vector<string> split(const string& str, char delimiter) {
+inline vector<string> split(const string& str, char delimiter) {
 	vector<string> tokens;
 	stringstream ss(str);
 	string token;

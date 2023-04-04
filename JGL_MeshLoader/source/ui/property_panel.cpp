@@ -27,7 +27,7 @@ namespace nui
         if (ImGui::Button("Openshader..."))
         {
             mFileDialog.SetTitle("Shader");
-            mFileDialog.SetFileFilters({ ".shader"});
+            //mFileDialog.SetFileFilters({ ".shader"});
             mFileDialog.Open();
         }
         ImGui::SameLine(0, 5.0f);

@@ -1,14 +1,18 @@
 #include "pch.h"
 #include "material.h"
+#include "utils/filesystem.h"
 
 
-Material::Material(const char* xmlPath)
+void Material::load(const char* xmlPath)
 {
+	string p = "D:/gitDemo/JGL/JGL_MeshLoader/resource/example.xml";
 	XMLDocument doc;
-	doc.LoadFile(xmlPath);
+	doc.LoadFile(p.c_str());
 	XMLElement* root = doc.FirstChildElement("Material");
-	name = root->Attribute("Name");
-	istringstream(root->Attribute("multipass"))>>boolalpha>>mMultipass;
+	//string t = root->Attribute("Name");
+
+	mName = root->Attribute("Name");
+	istringstream(root->Attribute("multipass")) >> boolalpha >> mMultipass;
 	for (XMLElement* child = root->FirstChildElement("Param"); child != NULL; child = child->NextSiblingElement("Param")) {
 		Param param;
 		param.name = child->Attribute("Name");
@@ -17,7 +21,8 @@ Material::Material(const char* xmlPath)
 		params.push_back(param);
 
 		if (param.type == "Texture") {
-			unsigned int tex_id = TextureSystem::getTextureId(param.defaultValue.c_str());
+			string path = FileSystem::getPath(param.defaultValue);
+			unsigned int tex_id = TextureSystem::getTextureId(path.c_str());
 			mTexture_id_vec.push_back(tex_id);
 		}
 		if (param.type == "float") {
@@ -35,21 +40,20 @@ Material::Material(const char* xmlPath)
 
 bool Material::update_shader_params(nshaders::Shader* shader)
 {
-	if (mMultipass) {
-		for (auto it : mFloat_map) {
-			shader->set_f1(it.second, it.first);
-		}
-		for (auto it : mFloat3_map) {
-			shader->set_vec3(it.second, it.first);
-		}
-		for (int i = 0; i < mTexture_id_vec.size(); i++) {
-			shader->set_texture(GL_TEXTURE0 + i, GL_TEXTURE_2D, mTexture_id_vec[i]);
-		}
+	for (auto it : mFloat_map) {
+		shader->set_f1(it.second, it.first);
 	}
+	for (auto it : mFloat3_map) {
+		shader->set_vec3(it.second, it.first);
+	}
+	for (int i = 0; i < mTexture_id_vec.size(); i++) {
+		shader->set_texture(GL_TEXTURE0 + i, GL_TEXTURE_2D, mTexture_id_vec[i]);
+	}
+
 	return true;
 }
 
-bool Material::set_param(string name, string type,string value)
+bool Material::set_param(string name, string type, string value)
 {
 	if (type == "float") {
 		mFloat_map[name] = stof(value);
@@ -58,4 +62,17 @@ bool Material::set_param(string name, string type,string value)
 		mFloat3_map[name] = StringtoFloat3(value);
 	}
 	return true;
+}
+
+glm::vec3 Material::StringtoFloat3(std::string str)
+{
+	istringstream iss(str);
+	string token;
+	vector<string> tmp;
+	while (getline(iss, token, ','))
+	{
+		tmp.push_back(token);
+	}
+	glm::vec3 res{ stof(tmp[0]),stof(tmp[1]),stof(tmp[2]) };
+	return res;
 }

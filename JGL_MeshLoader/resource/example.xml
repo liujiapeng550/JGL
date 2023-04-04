@@ -1,10 +1,12 @@
 <Material 
-  name =" Fur"
-  multipass ="True">
+  Name ="Fur"
+  multipass ="True"
+  shader= "shaders/fur_fs.shader"
+  >
   <Param
     Name ="FurNoiseTex"
     Type ="Texture"
-    Default ="white"
+    Default ="resource/textures/weather/nosie.png"
   />
   <Param
    Name ="FurLength"

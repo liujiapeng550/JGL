@@ -6,6 +6,7 @@
 #include "shader/shader_util.h"
 #include "render/opengl_buffer_manager.h"
 #include "elems/input.h"
+#include "elems/material.h"
 
 namespace nui
 {
@@ -66,6 +67,7 @@ namespace nui
     std::shared_ptr<nelems::Mesh> mMesh;
     glm::vec2 mSize;
     std::string m_shadername;
+    std::shared_ptr<Material> mMaterial;
   };
 }
 
