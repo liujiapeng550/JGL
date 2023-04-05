@@ -30,7 +30,7 @@ struct Param {
 
 class Material {
 public:
-	Material() :name(""), params() {}
+	Material();
 	void load(const char* xmlPath);
 	void print() {
 		cout << "Name: " << name << endl;
@@ -44,7 +44,6 @@ public:
 	bool set_param(string name,string trye,string value);
 	glm::vec3 StringtoFloat3(std::string str);
 	string getshaderPath() { return mshader_path; }
-	string mName;
 private:
 	vector<Param> params;
 	string name;

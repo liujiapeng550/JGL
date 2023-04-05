@@ -3,15 +3,17 @@
 #include "utils/filesystem.h"
 
 
+Material::Material():name("default")
+{
+}
+
 void Material::load(const char* xmlPath)
 {
-	string p = "D:/gitDemo/JGL/JGL_MeshLoader/resource/example.xml";
 	XMLDocument doc;
-	doc.LoadFile(p.c_str());
+	doc.LoadFile(xmlPath);
 	XMLElement* root = doc.FirstChildElement("Material");
-	//string t = root->Attribute("Name");
-
-	mName = root->Attribute("Name");
+	mshader_path = FileSystem::getPath(root->Attribute("shader"));
+	name = root->Attribute("Name");
 	istringstream(root->Attribute("multipass")) >> boolalpha >> mMultipass;
 	for (XMLElement* child = root->FirstChildElement("Param"); child != NULL; child = child->NextSiblingElement("Param")) {
 		Param param;

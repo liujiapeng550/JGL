@@ -1,12 +1,12 @@
 <Material 
   Name ="Fur"
   multipass ="True"
-  shader= "shaders/fur_fs.shader"
+  shader= "JGL_MeshLoader/shaders/fur_fs.shader"
   >
   <Param
     Name ="FurNoiseTex"
     Type ="Texture"
-    Default ="resource/textures/weather/nosie.png"
+    Default ="JGL_MeshLoader/resource/textures/weather/nosie.png"
   />
   <Param
    Name ="FurLength"

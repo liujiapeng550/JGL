@@ -44,8 +44,8 @@ namespace nui
       }
       std::string vsname = shadername + "_vs.shader";
       std::string fsname = shadername + "_fs.shader";
-      size_t shaderName_index = filepath.find_last_of('\\');
-      m_shadername = shadername.substr(shaderName_index + 1,-1);
+      size_t shaderName_index = shadername.find_last_of('\\');
+      m_shadername ="fur";
       mShader = std::make_unique<nshaders::Shader>(vsname.c_str(), fsname.c_str());
   }
 
