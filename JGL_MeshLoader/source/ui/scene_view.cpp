@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "scene_view.h"
-
 #include "imgui.h"
-#include "utils/filesystem.h"
 namespace nui
 {
   void SceneView::resize(int32_t width, int32_t height)
@@ -49,19 +47,6 @@ namespace nui
       mShader = std::make_unique<nshaders::Shader>(vsname.c_str(), fsname.c_str());
   }
 
-  void SceneView::renderFur()
-  {
-      for (int i = 0; i < 10; i += 1) {
-
-          mMesh->updateFur(mShader.get(),i);
-          mMesh->render();
-      }
-  }
-  void render2()
-  {
-
-  }
-
   void SceneView::render()
   {
     mShader->use();
@@ -70,21 +55,23 @@ namespace nui
     mShader->set_i1(2, "RippleTexture");
     mShader->set_i1(3, "RippleTexture");
 
-    mLight->update(mShader.get());
+	mLight->update(mShader.get());
 
-    mFrameBuffer->bind();
+	mFrameBuffer->bind();
 
-    if (mMesh)
-    {
-        if (m_shadername == "fur") {
-            //mMesh->update(mShader.get());
-            //renderFur();
-           // if (mMultipass) {
+	if (mMesh)
+	{
+		if (m_shadername == "fur") {
+			//mMesh->update(mShader.get());
+			//renderFur();
+		   // if (mMultipass) {
 
-                for (int i = 0; i < 10; i += 1) {
-                    mMaterial->set_param("FurLength", "float", to_string(i));
-                    mMaterial->update_shader_params(mShader.get());
-                }
+			for (int i = 0; i < 10; i += 1) {
+				mMaterial->set_param("FurLength", "float", to_string(i));
+				mMaterial->update_shader_params(mShader.get());
+				mMesh->render();
+
+			}
            // }
         }
         else

@@ -1,7 +1,4 @@
-#include "pch.h"
 #include "material.h"
-#include "utils/filesystem.h"
-
 
 Material::Material():name("default")
 {
@@ -49,9 +46,9 @@ bool Material::update_shader_params(nshaders::Shader* shader)
 		shader->set_vec3(it.second, it.first);
 	}
 	for (int i = 0; i < mTexture_id_vec.size(); i++) {
+		shader->set_i1(GL_TEXTURE0 + i, "FurNoiseTex");
 		shader->set_texture(GL_TEXTURE0 + i, GL_TEXTURE_2D, mTexture_id_vec[i]);
 	}
-
 	return true;
 }
 
