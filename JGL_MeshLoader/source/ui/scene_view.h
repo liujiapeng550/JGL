@@ -48,6 +48,7 @@ namespace nui
     }
 
     std::shared_ptr<nelems::Mesh> get_mesh() { return mMesh; }
+    std::shared_ptr<Material> get_Material() { return mMaterial; }
     
     void on_mouse_move(double x, double y, nelems::EInputButton button);
 

@@ -6,20 +6,12 @@ in vec2 TexCoord;
 
 
 // texture sampler
-uniform sampler2D RippleTexture;
+uniform sampler2D FurNoiseTex;
 //uniform sampler2D noiseMap;
-
-
-
-uniform float time;
-uniform vec3 _RiverParam01;//x:normal 水面的uv缩放 y:水面流动速度 z:水面法线uv缩放效果
-uniform vec3 _NormalParam;
-uniform float _RippleSize;
-
 
 void main()
 {
-	vec4 albedo = texture(RippleTexture, TexCoord);
+	vec4 albedo = texture(FurNoiseTex, TexCoord);
 	if (albedo.r> 0.1)
 		discard;
 	vec4 color = vec4(1.0,1.0,0.0, 0.5);

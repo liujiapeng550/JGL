@@ -133,7 +133,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="source\elems\material.cpp" />
+    <ClCompile Include="source\elems\material.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="source\elems\tinyxml2.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -167,6 +169,9 @@
     <ClCompile Include="source\elems\vertex_holder.cpp" />
     <ClCompile Include="source\render\opengl_buffer_manager.cpp" />
     <ClCompile Include="source\render\ui_context.cpp" />
+    <ClCompile Include="source\utils\filesystem.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="source\window\jgl_window.cpp" />
     <ClCompile Include="source\elems\mesh.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
@@ -239,7 +244,7 @@
     <Text Include="source\3rdparty\imgui\LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="resource\example.xml" />
+    <Xml Include="resource\fur.mtg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

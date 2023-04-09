@@ -44,6 +44,7 @@ public:
 	bool set_param(string name,string trye,string value);
 	glm::vec3 StringtoFloat3(std::string str);
 	string getshaderPath() { return mshader_path; }
+	map<string, float>& getFloatMap() { return mFloat_map; }
 private:
 	vector<Param> params;
 	string name;
