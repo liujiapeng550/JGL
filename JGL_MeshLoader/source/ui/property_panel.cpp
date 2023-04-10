@@ -38,14 +38,12 @@ namespace nui
     {
        auto material = scene_view->get_Material();
        map<string, float> floatTypeMap;
-       floatTypeMap = material->getFloatMap();
-       for (auto it:floatTypeMap)
+       for (auto& it: material->getFloatMap())
        {
            float tmp;
            tmp = it.second;
            ImGui::SliderFloat(it.first.c_str(), (float*)&tmp, 0.0f, 1.0f);
-           it.second = 5.0;
-
+           it.second = tmp;
        }
 
 
