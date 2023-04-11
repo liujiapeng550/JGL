@@ -64,21 +64,21 @@ namespace nui
 		if (m_shadername == "fur") {
 			//mMesh->update(mShader.get());
 			//renderFur();
-		   // if (mMultipass) {
-
-			for (int i = 0; i < 10; i += 1) {
-				mMaterial->set_param("FurLength", "float", to_string(i));
-				mMaterial->update_shader_params(mShader.get());
-				mMesh->render();
-
+			if (mMaterial->isMultyPass()) {
+                int passcount = int(mMaterial->getFloatMap()["Pass"]);
+				for (int i = 0; i < passcount; i += 1) {
+                    //shader公共参数
+                    mShader.get()->set_f1(i, "PassIndex");
+					mMaterial->update_shader_params(mShader.get());
+					mMesh->render();
+				}
 			}
-           // }
-        }
-        else
-        {
-            mMesh->update(mShader.get());
-            mMesh->render();
-        }
+		}
+		else
+		{
+			mMesh->update(mShader.get());
+			mMesh->render();
+		}
     }
     else {
         load_mesh(FileSystem::getPath("JGL_MeshLoader/resource/plane.fbx"));

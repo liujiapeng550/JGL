@@ -1,6 +1,6 @@
 <Material
 Name ="Fur"
-multipass ="True"
+multipass ="true"
 shader= "JGL_MeshLoader/shaders/fur_fs.shader"
 >
     <Param
@@ -11,12 +11,12 @@ Default ="JGL_MeshLoader/resource/textures/weather/nosie.png"
     <Param
 Name="FurLength" 
 Type ="float"
-Default ="0.0"
+Default ="1.0"
 />
     <Param
-Name ="Layer"
+Name ="Pass"
 Type ="float"
-Default ="0.0"
+Default ="10.0"
 />
     <Param
 Name ="vGravity"

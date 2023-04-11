@@ -42,31 +42,45 @@ namespace nui
        {
            float tmp;
            tmp = it.second;
-           ImGui::SliderFloat(it.first.c_str(), (float*)&tmp, 0.0f, 1.0f);
+           ImGui::SliderFloat(it.first.c_str(), (float*)&tmp, 0.0f, 100.0f);
            it.second = tmp;
        }
+       for (auto& it : material->getFloat3Map())
+       {
+           glm::vec3 tmp;
+           tmp = it.second;
+           ImGui::SliderFloat3(it.first.c_str(), (float*)&tmp, 0.0f, 100.0f);
+           it.second = tmp;
+       }
+       for (auto& it : material->getTextureMap())
+       {
+           static char tmptexture[128];
+           strcpy(tmptexture, it.second.second.c_str());
+           if (ImGui::InputText(it.first.c_str(), &tmptexture[0], (int)(sizeof(tmptexture) / sizeof(*(tmptexture)))))
+           {
+               mesh->mbaseTexture_id = TextureSystem::getTextureId(tmptexture);
+           }
+       }
 
+    //  ImGui::ColorPicker3("Color", (float*)&mesh->mColor, ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_DisplayRGB); 
+    //  ImGui::SliderFloat("Roughness", &mesh->mRoughness, 0.0f, 1.0f);
+    //  //ImGui::SliderFloat("Metallic", &mesh->mMetallic, 0.0f, 1.0f);
+    //  //ImGui::SliderFloat("_RippleSize", &mesh->mRippleSize, 0.0f, 20.0f);
+    //  //mesh->mBaseTexture = "/resource/textures/weather/color.png";
 
+    //  static char basetexture[128];
+    //  strcpy(basetexture, mesh->mBaseTexture.c_str());
+    //  if (ImGui::InputText("BaseTexure", &basetexture[0], (int)(sizeof(basetexture) / sizeof(*(basetexture))))) 
+    //  {
+    //      mesh->mbaseTexture_id = TextureSystem::getTextureId(basetexture);
+    //  }
+    //  strcpy(basetexture, mesh->mbumpTexture.c_str());
+    //  if (ImGui::InputText("waterbumpMap", &basetexture[0], (int)(sizeof(basetexture) / sizeof(*(basetexture)))))
+    //  {
+    //      mesh->mbumpTexture_id = TextureSystem::getTextureId(basetexture);
+    //  }
 
-      ImGui::ColorPicker3("Color", (float*)&mesh->mColor, ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_DisplayRGB); 
-      ImGui::SliderFloat("Roughness", &mesh->mRoughness, 0.0f, 1.0f);
-      //ImGui::SliderFloat("Metallic", &mesh->mMetallic, 0.0f, 1.0f);
-      //ImGui::SliderFloat("_RippleSize", &mesh->mRippleSize, 0.0f, 20.0f);
-      //mesh->mBaseTexture = "/resource/textures/weather/color.png";
-
-      static char basetexture[128];
-      strcpy(basetexture, mesh->mBaseTexture.c_str());
-      if (ImGui::InputText("BaseTexure", &basetexture[0], (int)(sizeof(basetexture) / sizeof(*(basetexture))))) 
-      {
-          mesh->mbaseTexture_id = TextureSystem::getTextureId(basetexture);
-      }
-      strcpy(basetexture, mesh->mbumpTexture.c_str());
-      if (ImGui::InputText("waterbumpMap", &basetexture[0], (int)(sizeof(basetexture) / sizeof(*(basetexture)))))
-      {
-          mesh->mbumpTexture_id = TextureSystem::getTextureId(basetexture);
-      }
-
-      nimgui::draw_vec3_widget("RiverParam01", mesh->mRiverParame01, 80.0f);
+    //  nimgui::draw_vec3_widget("RiverParam01", mesh->mRiverParame01, 80.0f);
     }
 
     if (ImGui::CollapsingHeader("Light"))

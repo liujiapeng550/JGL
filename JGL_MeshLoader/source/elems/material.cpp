@@ -18,11 +18,10 @@ void Material::load(const char* xmlPath)
 		param.type = child->Attribute("Type");
 		param.defaultValue = child->Attribute("Default");
 		params.push_back(param);
-
 		if (param.type == "Texture") {
 			string path = FileSystem::getPath(param.defaultValue);
 			unsigned int tex_id = TextureSystem::getTextureId(path.c_str());
-			mTexture_id_vec.push_back(tex_id);
+			mTexture_map[param.name] = pair(tex_id,path);
 		}
 		if (param.type == "float") {
 			mFloat_map.insert(pair<string, float>(param.name, stof(param.defaultValue)));
@@ -45,9 +44,10 @@ bool Material::update_shader_params(nshaders::Shader* shader)
 	for (auto it : mFloat3_map) {
 		shader->set_vec3(it.second, it.first);
 	}
-	for (int i = 0; i < mTexture_id_vec.size(); i++) {
-		shader->set_i1(GL_TEXTURE0 + i, "FurNoiseTex");
-		shader->set_texture(GL_TEXTURE0 + i, GL_TEXTURE_2D, mTexture_id_vec[i]);
+	int tex_index = 0;
+	for (auto it : mTexture_map) {
+		shader->set_i1(GL_TEXTURE0 + tex_index, it.first);
+		shader->set_texture(GL_TEXTURE0 + tex_index, GL_TEXTURE_2D,it.second.first);
 	}
 	return true;
 }

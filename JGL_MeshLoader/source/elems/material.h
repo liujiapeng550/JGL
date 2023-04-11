@@ -44,15 +44,20 @@ public:
 	bool set_param(string name,string trye,string value);
 	glm::vec3 StringtoFloat3(std::string str);
 	string getshaderPath() { return mshader_path; }
-	map<string, float>& getFloatMap() { return mFloat_map; }
+	inline bool isMultyPass() { return mMultipass; }
+	inline map<string, float>& getFloatMap() { return mFloat_map; }
+	inline map<string, glm::vec3>& getFloat3Map() { return mFloat3_map; }
+	inline map<string, pair<unsigned int, string>>& getTextureMap(){ return mTexture_map; }
+	inline int passcount() { return mPassCount; }
 private:
 	vector<Param> params;
 	string name;
-	vector<unsigned int> mTexture_id_vec;
+	map<string,pair<unsigned int,string>> mTexture_map;
 	map<string, float> mFloat_map;
 	map<string, glm::vec3> mFloat3_map;
-	bool mMultipass=false;
+	bool mMultipass;
 	string mshader_path;
+	int mPassCount;
 };
 
 inline vector<string> split(const string& str, char delimiter) {
