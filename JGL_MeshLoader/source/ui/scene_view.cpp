@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "scene_view.h"
 #include "imgui.h"
+#include<filesystem>
 namespace nui
 {
   void SceneView::resize(int32_t width, int32_t height)
@@ -43,7 +44,8 @@ namespace nui
       std::string vsname = shadername + "_vs.shader";
       std::string fsname = shadername + "_fs.shader";
       size_t shaderName_index = shadername.find_last_of('\\');
-      m_shadername ="fur";
+      std::filesystem::path pathpath(shadername);
+      m_shadername = pathpath.stem().string();
       mShader = std::make_unique<nshaders::Shader>(vsname.c_str(), fsname.c_str());
   }
 
@@ -61,18 +63,23 @@ namespace nui
 
 	if (mMesh)
 	{
-		if (m_shadername == "fur") {
+		if (m_shadername == "pbr") {
 			//mMesh->update(mShader.get());
 			//renderFur();
-			if (mMaterial->isMultyPass()) {
-                int passcount = int(mMaterial->getFloatMap()["Pass"]);
-				for (int i = 0; i < passcount; i += 1) {
-                    //shader公共参数
-                    mShader.get()->set_f1(i, "PassIndex");
-					mMaterial->update_shader_params(mShader.get());
-					mMesh->render();
-				}
-			}
+			//if (mMaterial->isMultyPass()) {
+   //             int passcount = int(mMaterial->getFloatMap()["Pass"]);
+			//	for (int i = 0; i < passcount; i += 1) {
+   //                 //shader公共参数
+   //                 mShader.get()->set_f1(i, "PassIndex");
+			//		mMaterial->update_shader_params(mShader.get());
+			//		mMesh->render();
+			//	}
+   //         }
+   //         else
+   //         {
+                mMaterial->update_shader_params(mShader.get());
+                mMesh->render();
+            
 		}
 		else
 		{

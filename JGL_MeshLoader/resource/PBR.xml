@@ -1,0 +1,27 @@
+<Material
+Name ="PBR"
+multipass ="false"
+shader= "JGL_MeshLoader/shaders/pbr_fs.shader"
+>
+    <Param
+Name="baseMap"
+Type ="Texture"
+Default ="JGL_MeshLoader/resource/textures/weather/base.png"
+/>
+    <Param
+Name ="metallic"
+Type ="float"
+Default ="0.1"
+/>
+  <Param
+Name ="roughness"
+Type ="float"
+Default ="0.2"
+/>
+ 
+    <Param
+Name ="color"
+Type ="float3"
+Default ="1.0,1.0,1.0"
+/>
+</Material>
