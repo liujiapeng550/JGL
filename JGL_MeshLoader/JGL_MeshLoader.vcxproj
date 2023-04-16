@@ -246,6 +246,7 @@
   <ItemGroup>
     <Xml Include="resource\fur.mtg" />
     <Xml Include="resource\Fur.xml" />
+    <Xml Include="resource\NightSky.xml" />
     <Xml Include="resource\PBR.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

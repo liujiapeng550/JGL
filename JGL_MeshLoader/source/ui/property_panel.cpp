@@ -27,7 +27,7 @@ namespace nui
         if (ImGui::Button("OpenMaterial..."))
         {
             mFileDialog.SetTitle("Material");
-            //mFileDialog.SetFileFilters({ ".shader"});
+            mFileDialog.SetFileFilters({ ".xml"});
             mFileDialog.Open();
         }
         ImGui::SameLine(0, 5.0f);
@@ -42,14 +42,14 @@ namespace nui
        {
            float tmp;
            tmp = it.second;
-           ImGui::SliderFloat(it.first.c_str(), (float*)&tmp, 0.0f, 100.0f);
+           ImGui::SliderFloat(it.first.c_str(), (float*)&tmp, -100.0f, 100.0f);
            it.second = tmp;
        }
        for (auto& it : material->getFloat3Map())
        {
            glm::vec3 tmp;
            tmp = it.second;
-           ImGui::SliderFloat3(it.first.c_str(), (float*)&tmp, 0.0f, 100.0f);
+           ImGui::SliderFloat3(it.first.c_str(), (float*)&tmp, -100.0f, 100.0f);
            it.second = tmp;
        }
        for (auto& it : material->getTextureMap())

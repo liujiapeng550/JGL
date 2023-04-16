@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Material
-Name ="PBR"
+Name ="NightSky"
 multipass ="false"
-shader= "JGL_MeshLoader/shaders/pbr_fs.shader"
+shader= "JGL_MeshLoader/shaders/nightsky_fs.shader"
 >
-  <Param
+  <!--<Param
 Name="baseMap"
 Type ="Texture"
 Default ="JGL_MeshLoader/resource/textures/weather/base.png"
@@ -33,5 +32,5 @@ Default ="1.5,3.0,3.0"
 Name ="lightColor"
 Type ="float3"
 Default ="100,100,100"
-/>
+/>-->
 </Material>

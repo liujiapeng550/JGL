@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Material
+Name ="SKY"
+multipass ="false"
+shader= "JGL_MeshLoader/shaders/sky_fs.shader"
+>
+
+</Material>

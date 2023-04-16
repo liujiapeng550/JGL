@@ -19,10 +19,11 @@ namespace nui
     {
       mFrameBuffer = std::make_unique<nrender::OpenGL_FrameBuffer>();
       mFrameBuffer->create_buffers(800, 600);
-      mShader = std::make_unique<nshaders::Shader>("shaders/pbr_vs.shader", "shaders/pbr_fs.shader");
+     // mShader = std::make_unique<nshaders::Shader>("shaders/pbr_vs.shader", "shaders/pbr_fs.shader");
       mLight = std::make_unique<nelems::Light>();
       mCamera = std::make_unique<nelems::Camera>(glm::vec3(0, 0, 3), 45.0f, 1.3f, 0.1f, 1000.0f);
       mMaterial = std::make_unique<Material>();
+      load_shader("D:/gitDeom/JGL/JGL_MeshLoader/resource/PBR.xml");
     }
 
     ~SceneView()
