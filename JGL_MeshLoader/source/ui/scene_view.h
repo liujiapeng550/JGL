@@ -23,7 +23,7 @@ namespace nui
       mLight = std::make_unique<nelems::Light>();
       mCamera = std::make_unique<nelems::Camera>(glm::vec3(0, 0, 3), 45.0f, 1.3f, 0.1f, 1000.0f);
       mMaterial = std::make_unique<Material>();
-      load_shader("D:/gitDeom/JGL/JGL_MeshLoader/resource/PBR.xml");
+      load_shader(FileSystem::getPath("JGL_MeshLoader/resource/PBR.xml"));
     }
 
     ~SceneView()
