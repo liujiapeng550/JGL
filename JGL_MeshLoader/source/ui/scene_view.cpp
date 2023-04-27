@@ -33,6 +33,9 @@ namespace nui
 
 	void SceneView::load_shader(const std::string& filepath)
 	{
+		//??mMaterial?????????
+        if (mMaterial)
+            mMaterial = std::make_shared<Material>();
 		mMaterial->load(filepath.c_str());
 		std::string shadername;
 		shadername = mMaterial->getshaderPath();

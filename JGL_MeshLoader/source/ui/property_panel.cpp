@@ -18,7 +18,7 @@ namespace nui
         mFileDialog.Open();
       }
       ImGui::SameLine(0, 5.0f);
-      ImGui::Text(mCurrentFile.c_str());
+      ImGui::Text(mCurrentMeshFile.c_str());
     }
 
     if (ImGui::CollapsingHeader("Material", ImGuiTreeNodeFlags_DefaultOpen))
@@ -31,7 +31,7 @@ namespace nui
             mFileDialog.Open();
         }
         ImGui::SameLine(0, 5.0f);
-        ImGui::Text(mCurrentFile.c_str());
+        ImGui::Text(mCurrentMaterialFile.c_str());
     }
 
     if (ImGui::CollapsingHeader("Material") && mesh)
@@ -97,14 +97,14 @@ namespace nui
     mFileDialog.Display();
     if (mFileDialog.HasSelected())
     {
-      auto file_path = mFileDialog.GetSelected().string();
       mCurrentFile = file_path.substr(file_path.find_last_of("/\\") + 1);
       std::string title = mFileDialog.get_FileBrower_title();
       if (title == "Material") {
          mShaderLoadCallback(file_path);
+         mCurrentMaterialFile = file_path.substr(file_path.find_last_of("/\\") + 1);
       }else if(title == "Mesh")
         mMeshLoadCallback(file_path);
-
+        mCurrentMeshFile = file_path.substr(file_path.find_last_of("/\\") + 1);
       mFileDialog.ClearSelected();
     }
 

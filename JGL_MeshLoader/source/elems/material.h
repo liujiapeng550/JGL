@@ -31,6 +31,7 @@ struct Param {
 class Material {
 public:
 	Material();
+    ~Material();
 	void load(const char* xmlPath);
 	void print() {
 		cout << "Name: " << name << endl;

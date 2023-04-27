@@ -75,3 +75,14 @@ glm::vec3 Material::StringtoFloat3(std::string str)
 	glm::vec3 res{ stof(tmp[0]),stof(tmp[1]),stof(tmp[2]) };
 	return res;
 }
+
+Material::~Material() {
+	// 清除参数列表
+	params.clear();
+	// 清除纹理映射
+	mTexture_map.clear();
+	// 清除浮点数映射
+	mFloat_map.clear();
+	// 清除浮点向量映射
+	mFloat3_map.clear();
+}

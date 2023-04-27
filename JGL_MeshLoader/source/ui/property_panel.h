@@ -15,7 +15,8 @@ namespace nui
 
     Property_Panel()
     {
-      mCurrentFile = "< ... >";
+        mCurrentMaterialFile = "< ... >";
+        mCurrentMeshFile = "< ... >";
 
       //mFileDialog.SetTitle("Open mesh");
       //mFileDialog.SetFileFilters({ ".fbx", ".obj" });
@@ -39,8 +40,8 @@ namespace nui
 
     std::function<void(const std::string&)> mMeshLoadCallback;
     std::function<void(const std::string&)> mShaderLoadCallback;
-
-    std::string mCurrentFile;
+    std::string mCurrentMeshFile;
+    std::string mCurrentMaterialFile;
 
 
   };
