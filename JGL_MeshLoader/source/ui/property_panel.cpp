@@ -97,7 +97,7 @@ namespace nui
     mFileDialog.Display();
     if (mFileDialog.HasSelected())
     {
-      mCurrentFile = file_path.substr(file_path.find_last_of("/\\") + 1);
+      auto file_path = mFileDialog.GetSelected().string();
       std::string title = mFileDialog.get_FileBrower_title();
       if (title == "Material") {
          mShaderLoadCallback(file_path);
