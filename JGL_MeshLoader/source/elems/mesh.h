@@ -11,86 +11,34 @@ namespace nelems
 {
 	class Mesh : public Element
 	{
-
 	public:
-
-		Mesh() = default;
-
+		Mesh();
 		virtual ~Mesh();
-
 		bool load(const std::string& filepath);
-		bool loadTexture();
-
 		void add_vertex(const VertexHolder& vertex) { mVertices.push_back(vertex); }
-
 		void add_vertex_index(unsigned int vertex_idx) { mVertexIndices.push_back(vertex_idx); }
-
 		std::vector<unsigned int> get_vertex_indices() { return mVertexIndices; }
-
 		void update(nshaders::Shader* shader) override
 		{
 			// pbr color
-			shader->set_vec3(mColor, "color");
-			shader->set_texture(GL_TEXTURE0, GL_TEXTURE_2D, mbaseTexture_id);
-			shader->set_texture(GL_TEXTURE1, GL_TEXTURE_2D, mbumpTexture_id);
-			shader->set_texture(GL_TEXTURE2, GL_TEXTURE_2D, normalTexture_id);
-			shader->set_f1(mRoughness, "roughness");
-			shader->set_f1(mMetallic, "metallic");
-			shader->set_f1(mRippleSize, "_RippleSize");
-			shader->set_f1(1.0f, "ao");
-			shader->set_f1((float)glfwGetTime(), "time");
-			shader->set_vec3(mRiverParame01, "_RiverParam01");
 			
 		}
-		void updateFur(nshaders::Shader* shader,int i)
-		{
-			m_furlayer = float(i + 1) / 10;
-			m_furlength = 10 * m_furlayer;
-			shader->set_f1(m_furlength, "FurLength");
-			shader->set_f1(m_furlayer, "Layer");
-			shader->set_vec3(m_gravity, "vGravity");
-			shader->set_texture(GL_TEXTURE3, GL_TEXTURE_2D, furTexture_id);
-		}	
-
-		glm::vec3 mColor = { 1.0f, 0.0f, 0.0f };
-		float mRoughness = 0.2f;
-		float mMetallic = 0.1f;
-		float mRippleSize = 5.f;
-		glm::vec3 mRiverParame01 = { 5.0,0.1,1.0 };
-		std::string mBaseTexture = "resource/textures/weather/base.png";
-		std::string mbumpTexture = "resource/textures/weather/water_bump_map.png";
-		std::string normalTexture = "resource/textures/weather/droplet_tex.png";
-		std::string nosieTexture = "resource/textures/weather/nosie.png";
-		unsigned int mbaseTexture_id;
-		unsigned int mbumpTexture_id;
-		unsigned int normalTexture_id;
 		unsigned int furTexture_id;
 		float m_furlength;
 		float m_furlayer;
 		glm::vec3 m_gravity;
 		float m_uvScale;
-		void init();
-
 		void create_buffers();
-
 		void delete_buffers();
-
 		void render();
-
 		void bind();
-
 		void unbind();
-
 	private:
-
 		// Buffers manager
 		std::unique_ptr<nrender::VertexIndexBuffer> mRenderBufferMgr;
-
 		// Vertices and indices
 		std::vector<VertexHolder> mVertices;
 		std::vector<unsigned int> mVertexIndices;
-
-
 	};
 }
 

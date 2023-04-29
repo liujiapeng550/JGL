@@ -28,7 +28,6 @@ namespace nui
 			mMesh = std::make_shared<nelems::Mesh>();
 
 		mMesh->load(filepath);
-
 	}
 
 	void SceneView::load_shader(const std::string& filepath)
@@ -54,14 +53,6 @@ namespace nui
 
 	void SceneView::render()
 	{
-		//   mShader->use();
-		//   mShader->set_i1(0, "baseMap");
-		//   mShader->set_i1(1, "waterbumpMap");
-		//   mShader->set_i1(2, "RippleTexture");
-		//   mShader->set_i1(3, "RippleTexture");
-
-		//mLight->update(mShader.get());
-
 		mFrameBuffer->bind();
 
 		if (mMesh && mShader)
@@ -84,31 +75,19 @@ namespace nui
 				mMaterial->update_shader_params(mShader.get());
 				mMesh->render();
 			}
-			//}
-			//else
-			//{
-			//	mMesh->update(mShader.get());
-			//	mMesh->render();
-			//}
 		}
 		else {
 			load_mesh(FileSystem::getPath("JGL_MeshLoader/resource/plane.fbx"));
 		}
-
 		mFrameBuffer->unbind();
-
 		ImGui::Begin("Scene");
-
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		mSize = { viewportPanelSize.x, viewportPanelSize.y };
-
 		mCamera->set_aspect(mSize.x / mSize.y);
 		mCamera->update(mShader.get());
-
 		// add rendered texture to ImGUI scene window
 		uint64_t textureID = mFrameBuffer->get_texture();
 		ImGui::Image(reinterpret_cast<void*>(textureID), ImVec2{ mSize.x, mSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
-
 		ImGui::End();
 	}
 }

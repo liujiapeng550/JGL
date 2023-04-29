@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "mesh.h"
-
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
@@ -9,11 +8,9 @@
 
 namespace nelems
 {
-  void Mesh::init()
+  Mesh::Mesh()
   {
-    mRenderBufferMgr = std::make_unique<nrender::OpenGL_VertexIndexBuffer>();
-
-    create_buffers();
+      mRenderBufferMgr = std::make_unique<nrender::OpenGL_VertexIndexBuffer>();
   }
 
   Mesh::~Mesh()
@@ -31,20 +28,9 @@ namespace nelems
       aiProcess_GenUVCoords |
       aiProcess_OptimizeMeshes |
       aiProcess_ValidateDataStructure;
-    char texture[128];
-    strcpy(texture, mBaseTexture.c_str());
-    mbaseTexture_id = TextureSystem::getTextureId(texture);
-    //strcpy(texture, mbumpTexture.c_str());
-    //mbumpTexture_id = TextureSystem::getTextureId(texture);
-    //strcpy(texture, normalTexture.c_str());
-    //normalTexture_id = TextureSystem::getTextureId(texture);
-    //strcpy(texture, nosieTexture.c_str());
-    //furTexture_id = TextureSystem::getTextureId(texture);
     Assimp::Importer Importer;
-
     const aiScene* pScene = Importer.ReadFile(filepath.c_str(),
       cMeshImportFlags);
-
     if (pScene && pScene->HasMeshes())
     {
       mVertexIndices.clear();
@@ -60,7 +46,6 @@ namespace nelems
         vh.mTextureCoords = { mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y};
         add_vertex(vh);
       }
-
       for (size_t i = 0; i < mesh->mNumFaces; i++)
       {
         aiFace face = mesh->mFaces[i];
@@ -68,14 +53,11 @@ namespace nelems
         for (size_t j = 0; j < face.mNumIndices; j++)
           add_vertex_index(face.mIndices[j]);
       }
-
-      init();
+      create_buffers();
       return true;
     }
     return false;
   }
-
-
 
   void Mesh::create_buffers()
   {
