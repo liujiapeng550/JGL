@@ -1,4 +1,5 @@
 #pragma once
+#define MAX_BONE_INFLUENCE 4
 
 namespace nelems
 {
@@ -23,10 +24,16 @@ namespace nelems
 
 
     glm::vec3 mPos;
-
     glm::vec3 mNormal;
     glm::vec2 mTextureCoords;
-
+    // tangent
+    glm::vec3 mTangent;
+    // bitangent
+    glm::vec3 mBitangent;
+    //bone indexes which will influence this vertex
+    int mBoneIDs[MAX_BONE_INFLUENCE];
+    //weights from each bone
+    float mWeights[MAX_BONE_INFLUENCE];
     // TODO
     // glm::vec2 mUV;
 

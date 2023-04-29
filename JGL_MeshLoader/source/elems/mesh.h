@@ -13,6 +13,9 @@ namespace nelems
 	{
 	public:
 		Mesh();
+		Mesh(std::vector<VertexHolder> vertices, std::vector<unsigned int> indices);
+		// ¿½±´¹¹Ôìº¯Êý
+		Mesh(const Mesh& other);
 		virtual ~Mesh();
 		bool load(const std::string& filepath);
 		void add_vertex(const VertexHolder& vertex) { mVertices.push_back(vertex); }

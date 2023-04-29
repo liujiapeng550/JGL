@@ -5,12 +5,27 @@
 #include <assimp/scene.h>
 
 #include "render/opengl_buffer_manager.h"
-
+using namespace std;
 namespace nelems
 {
   Mesh::Mesh()
   {
       mRenderBufferMgr = std::make_unique<nrender::OpenGL_VertexIndexBuffer>();
+  }
+  // constructor
+  Mesh::Mesh(vector<VertexHolder> vertices, vector<unsigned int> indices)
+  {
+      mRenderBufferMgr = std::make_unique<nrender::OpenGL_VertexIndexBuffer>();
+      this->mVertices = vertices;
+      this->mVertexIndices = indices;
+      create_buffers();
+  }
+  Mesh::Mesh(const Mesh& other)
+  {
+      this->mVertices = other.mVertices;
+      this->mVertexIndices = other.mVertexIndices;
+      mRenderBufferMgr = std::make_unique<nrender::OpenGL_VertexIndexBuffer>();
+      create_buffers();
   }
 
   Mesh::~Mesh()

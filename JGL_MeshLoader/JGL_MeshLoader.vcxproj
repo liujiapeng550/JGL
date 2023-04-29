@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -194,6 +194,7 @@
   <ItemGroup>
     <ClInclude Include="source\3rdparty\plugins\imgui\ImFileBrowser.h" />
     <ClInclude Include="source\elems\material.h" />
+    <ClInclude Include="source\elems\model.h" />
     <ClInclude Include="source\elems\tinyxml2.h" />
     <ClInclude Include="source\utils\filesystem.h" />
     <ClInclude Include="source\utils\imgui_widgets.h" />
@@ -226,6 +227,8 @@
     <None Include="imgui.ini" />
     <None Include="libs\assimp\LICENSE" />
     <None Include="resource\node-move-on-plane-demo-scene.fbx" />
+    <None Include="shaders\common_fs.shader" />
+    <None Include="shaders\common_vs.shader" />
     <None Include="shaders\fs.shader" />
     <None Include="shaders\fur_fs.shader" />
     <None Include="shaders\fur_vs.shader" />
@@ -234,6 +237,8 @@
     <None Include="shaders\pbr_fs.shader" />
     <None Include="shaders\river_fs.shader" />
     <None Include="shaders\river_vs.shader" />
+    <None Include="shaders\sky_fs.shader" />
+    <None Include="shaders\sky_vs.shader" />
     <None Include="shaders\texture_fs.shader" />
     <None Include="shaders\texture_vs.shader" />
     <None Include="shaders\pbr_vs.shader" />
@@ -248,6 +253,7 @@
     <Xml Include="resource\Fur.xml" />
     <Xml Include="resource\NightSky.xml" />
     <Xml Include="resource\PBR.xml" />
+    <Xml Include="resource\SKY.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

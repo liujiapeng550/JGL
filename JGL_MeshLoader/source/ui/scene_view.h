@@ -2,6 +2,7 @@
 
 #include "elems/camera.h"
 #include "elems/mesh.h"
+#include "elems/model.h"
 #include "elems/light.h"
 #include "shader/shader_util.h"
 #include "render/opengl_buffer_manager.h"
@@ -25,24 +26,15 @@ namespace nui
       mMaterial = std::make_unique<Material>();
       load_shader(FileSystem::getPath("JGL_MeshLoader/resource/PBR.xml"));
     }
-
     ~SceneView()
     {
       mShader->unload();
     }
-
     nelems::Light* get_light() { return mLight.get(); }
-
     void resize(int32_t width, int32_t height);
-
-
     void render();
-    void renderFur();
-
     void load_mesh(const std::string& filepath);
-
     void load_shader(const std::string& filepath);
-
     void set_mesh(std::shared_ptr<nelems::Mesh> mesh)
     {
       mMesh = mesh;
@@ -66,6 +58,7 @@ namespace nui
     std::unique_ptr<nshaders::Shader> mShader;
     std::unique_ptr<nelems::Light> mLight;
     std::shared_ptr<nelems::Mesh> mMesh;
+    std::shared_ptr<nelems::Model> mModel;
     glm::vec2 mSize;
     std::string m_shadername;
     std::shared_ptr<Material> mMaterial;

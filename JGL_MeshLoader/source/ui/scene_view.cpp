@@ -2,6 +2,7 @@
 #include "scene_view.h"
 #include "imgui.h"
 #include<filesystem>
+
 namespace nui
 {
 	void SceneView::resize(int32_t width, int32_t height)
@@ -26,8 +27,10 @@ namespace nui
 	{
 		if (!mMesh)
 			mMesh = std::make_shared<nelems::Mesh>();
+		
+		mModel = std::make_shared<nelems::Model>(filepath);
 
-		mMesh->load(filepath);
+		//mMesh->load(filepath);
 	}
 
 	void SceneView::load_shader(const std::string& filepath)
@@ -73,7 +76,8 @@ namespace nui
 			else
 			{
 				mMaterial->update_shader_params(mShader.get());
-				mMesh->render();
+				//mMesh->render();
+				mModel->Draw();
 			}
 		}
 		else {
