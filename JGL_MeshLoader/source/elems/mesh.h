@@ -9,7 +9,7 @@
 
 namespace nelems
 {
-	class Mesh : public Element
+	class Mesh
 	{
 	public:
 		Mesh();
@@ -18,16 +18,6 @@ namespace nelems
 		void add_vertex(const VertexHolder& vertex) { mVertices.push_back(vertex); }
 		void add_vertex_index(unsigned int vertex_idx) { mVertexIndices.push_back(vertex_idx); }
 		std::vector<unsigned int> get_vertex_indices() { return mVertexIndices; }
-		void update(nshaders::Shader* shader) override
-		{
-			// pbr color
-			
-		}
-		unsigned int furTexture_id;
-		float m_furlength;
-		float m_furlayer;
-		glm::vec3 m_gravity;
-		float m_uvScale;
 		void create_buffers();
 		void delete_buffers();
 		void render();
