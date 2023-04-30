@@ -27,8 +27,11 @@ namespace nui
 	{
 		if (!mMesh)
 			mMesh = std::make_shared<nelems::Mesh>();
-		
 		mModel = std::make_shared<nelems::Model>(filepath);
+		if (mModel->GetIsSkinInModel()) {
+			//加载动画
+			Animation danceAnimation(FileSystem::getPath(filepath), &mModel);
+		}
 
 		//mMesh->load(filepath);
 	}
@@ -69,7 +72,9 @@ namespace nui
 						//shader公共参数
 						mShader.get()->set_f1(i, "PassIndex");
 						mMaterial->update_shader_params(mShader.get());
-						mMesh->render();
+						//mMesh->render();
+						mModel->Draw();
+
 					}
 				}
 			}

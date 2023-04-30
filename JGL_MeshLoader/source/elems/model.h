@@ -3,9 +3,23 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include<glm/glm.hpp>
+#include <map>
+
 using namespace std;
 namespace nelems
 {
+
+    struct BoneInfo
+    {
+        /*id is index in finalBoneMatrices*/
+        int id;
+
+        /*offset matrix transforms vertex from model space to bone space*/
+        glm::mat4 offset;
+
+    };
+
     class AssimpGLMHelpers
     {
     public:
@@ -52,7 +66,13 @@ namespace nelems
             for (unsigned int i = 0; i < meshes.size(); i++)
                 meshes[i].render();
         }
+
+        bool GetIsSkinInModel() { return mSkinInModel; }
     private:
+
+        map<string, BoneInfo> m_BoneInfoMap;
+        int m_BoneCounter = 0;
+        bool mSkinInModel = false;
         // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
         void loadModel(string const& path)
         {
@@ -101,6 +121,43 @@ namespace nelems
             }
         }
 
+        void ExtractBoneWeightForVertices(std::vector<VertexHolder>& vertices, aiMesh* mesh, const aiScene* scene)
+        {
+            auto& boneInfoMap = m_BoneInfoMap;
+            int& boneCount = m_BoneCounter;
+
+            for (int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex)
+            {
+                mSkinInModel = true;
+                int boneID = -1;
+                std::string boneName = mesh->mBones[boneIndex]->mName.C_Str();
+                if (boneInfoMap.find(boneName) == boneInfoMap.end())
+                {
+                    BoneInfo newBoneInfo;
+                    newBoneInfo.id = boneCount;
+                    newBoneInfo.offset = AssimpGLMHelpers::ConvertMatrixToGLMFormat(mesh->mBones[boneIndex]->mOffsetMatrix);
+                    boneInfoMap[boneName] = newBoneInfo;
+                    boneID = boneCount;
+                    boneCount++;
+                }
+                else
+                {
+                    boneID = boneInfoMap[boneName].id;
+                }
+                assert(boneID != -1);
+                auto weights = mesh->mBones[boneIndex]->mWeights;
+                int numWeights = mesh->mBones[boneIndex]->mNumWeights;
+
+                for (int weightIndex = 0; weightIndex < numWeights; ++weightIndex)
+                {
+                    int vertexId = weights[weightIndex].mVertexId;
+                    float weight = weights[weightIndex].mWeight;
+                    assert(vertexId <= vertices.size());
+                    SetVertexBoneData(vertices[vertexId], boneID, weight);
+                }
+            }
+        }
+
         Mesh processMesh(aiMesh* mesh, const aiScene* scene)
         {
             vector<VertexHolder> vertices;
@@ -143,47 +200,24 @@ namespace nelems
             //std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
             //textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
-            //ExtractBoneWeightForVertices(vertices, mesh, scene);
+            ExtractBoneWeightForVertices(vertices, mesh, scene);
             
             return Mesh(vertices, indices);
 
         }
 
-        /*void ExtractBoneWeightForVertices(std::vector<VertexHolder>& vertices, aiMesh* mesh, const aiScene* scene)
+        void SetVertexBoneData(VertexHolder& vertex, int boneID, float weight)
         {
-            auto& boneInfoMap = mBoneInfoMap;
-            int& boneCount = mBoneCounter;
-
-            for (int boneIndex = 0; boneIndex < mesh->mNumBones; ++boneIndex)
+            for (int i = 0; i < MAX_BONE_INFLUENCE; ++i)
             {
-                int boneID = -1;
-                std::string boneName = mesh->mBones[boneIndex]->mName.C_Str();
-                if (boneInfoMap.find(boneName) == boneInfoMap.end())
+                if (vertex.mBoneIDs[i] < 0)
                 {
-                    BoneInfo newBoneInfo;
-                    newBoneInfo.id = boneCount;
-                    newBoneInfo.offset = AssimpGLMHelpers::ConvertMatrixToGLMFormat(mesh->mBones[boneIndex]->mOffsetMatrix);
-                    boneInfoMap[boneName] = newBoneInfo;
-                    boneID = boneCount;
-                    boneCount++;
-                }
-                else
-                {
-                    boneID = boneInfoMap[boneName].id;
-                }
-                assert(boneID != -1);
-                auto weights = mesh->mBones[boneIndex]->mWeights;
-                int numWeights = mesh->mBones[boneIndex]->mNumWeights;
-
-                for (int weightIndex = 0; weightIndex < numWeights; ++weightIndex)
-                {
-                    int vertexId = weights[weightIndex].mVertexId;
-                    float weight = weights[weightIndex].mWeight;
-                    assert(vertexId <= vertices.size());
-                    SetVertexBoneData(vertices[vertexId], boneID, weight);
+                    vertex.mWeights[i] = weight;
+                    vertex.mBoneIDs[i] = boneID;
+                    break;
                 }
             }
-        }*/
+        }
 
     };
 }

@@ -14,7 +14,7 @@ namespace nui
       if (ImGui::Button("Open..."))
       {
         mFileDialog.SetTitle("Mesh");
-        mFileDialog.SetFileFilters({ ".fbx", ".obj" });
+        //mFileDialog.SetFileFilters({ ".fbx", ".obj" });
         mFileDialog.Open();
       }
       ImGui::SameLine(0, 5.0f);
