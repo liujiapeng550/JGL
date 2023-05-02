@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Material
+Name ="PBR"
+multipass ="false"
+shader= "JGL_MeshLoader/shaders/animmodel_fs.shader"
+>
+  <Param
+Name="tex"
+Type ="Texture"
+Default ="JGL_MeshLoader/resource/vampire/textures/Vampire_diffuse.png"
+/>
+</Material>

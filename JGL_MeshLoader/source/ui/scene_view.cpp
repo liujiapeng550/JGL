@@ -2,7 +2,6 @@
 #include "scene_view.h"
 #include "imgui.h"
 #include<filesystem>
-
 namespace nui
 {
 	void SceneView::resize(int32_t width, int32_t height)
@@ -28,9 +27,12 @@ namespace nui
 		if (!mMesh)
 			mMesh = std::make_shared<nelems::Mesh>();
 		mModel = std::make_shared<nelems::Model>(filepath);
-		if (mModel->GetIsSkinInModel()) {
+		mIsSkin = mModel->GetIsSkinInModel();
+		if(mIsSkin) {
 			//加载动画
-			Animation danceAnimation(FileSystem::getPath(filepath), &mModel);
+			mAnimation = Animation(filepath, mModel.get());
+			mAnimator = Animator(&mAnimation);
+
 		}
 
 		//mMesh->load(filepath);
@@ -60,10 +62,22 @@ namespace nui
 	void SceneView::render()
 	{
 		mFrameBuffer->bind();
+		mShader->use();
+
+		float currentFrame = glfwGetTime();
+		mdeltaTime = currentFrame - mlastFrame;
+		mlastFrame = currentFrame;
+		mAnimator.UpdateAnimation(mdeltaTime);
+
+		//如果有骨骼蒙皮
+		if (mIsSkin) {
+			auto transforms = mAnimator.GetFinalBoneMatrices();
+			for (int i = 0; i < transforms.size(); ++i)
+				mShader.get()->set_mat4(transforms[i],"finalBonesMatrices[" + std::to_string(i) + "]");
+		}
 
 		if (mMesh && mShader)
 		{
-			mShader->use();
 			mShader.get()->set_f1((float)glfwGetTime(), "time");
 			if (m_shadername == "fur") {
 				if (mMaterial->isMultyPass()) {
@@ -80,6 +94,8 @@ namespace nui
 			}
 			else
 			{
+
+
 				mMaterial->update_shader_params(mShader.get());
 				//mMesh->render();
 				mModel->Draw();

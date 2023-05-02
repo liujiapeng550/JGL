@@ -8,6 +8,8 @@
 #include "render/opengl_buffer_manager.h"
 #include "elems/input.h"
 #include "elems/material.h"
+#include "elems/animation.h"
+#include "elems/animator.h"
 
 namespace nui
 {
@@ -59,9 +61,15 @@ namespace nui
     std::unique_ptr<nelems::Light> mLight;
     std::shared_ptr<nelems::Mesh> mMesh;
     std::shared_ptr<nelems::Model> mModel;
+    bool mIsSkin=false;
     glm::vec2 mSize;
     std::string m_shadername;
     std::shared_ptr<Material> mMaterial;
+    Animation mAnimation;
+    Animator mAnimator;
+    // timing
+    float mdeltaTime = 0.0f;
+    float mlastFrame = 0.0f;
   };
 }
 

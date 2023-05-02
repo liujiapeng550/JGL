@@ -227,6 +227,8 @@
     <None Include="imgui.ini" />
     <None Include="libs\assimp\LICENSE" />
     <None Include="resource\node-move-on-plane-demo-scene.fbx" />
+    <None Include="shaders\animmodel_fs.shader" />
+    <None Include="shaders\animmodel_vs.shader" />
     <None Include="shaders\common_fs.shader" />
     <None Include="shaders\common_vs.shader" />
     <None Include="shaders\fs.shader" />
@@ -253,6 +255,7 @@
     <Xml Include="resource\Fur.xml" />
     <Xml Include="resource\NightSky.xml" />
     <Xml Include="resource\PBR.xml" />
+    <Xml Include="resource\Anim.xml" />
     <Xml Include="resource\SKY.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

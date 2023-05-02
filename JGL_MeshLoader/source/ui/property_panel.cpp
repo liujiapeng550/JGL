@@ -27,7 +27,7 @@ namespace nui
         if (ImGui::Button("OpenMaterial..."))
         {
             mFileDialog.SetTitle("Material");
-            mFileDialog.SetFileFilters({ ".xml"});
+            //mFileDialog.SetFileFilters({ ".xml"});
             mFileDialog.Open();
         }
         ImGui::SameLine(0, 5.0f);

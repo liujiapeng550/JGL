@@ -4,10 +4,10 @@
 #include <map>
 #include <glm/glm.hpp>
 #include <assimp/scene.h>
-#include <learnopengl/bone.h>
+#include "bone.h"
 #include <functional>
-#include <learnopengl/animdata.h>
-#include <learnopengl/model_animation.h>
+#include "model.h"
+#include "animdata.h"
 
 struct AssimpNodeData
 {
@@ -22,7 +22,7 @@ class Animation
 public:
 	Animation() = default;
 
-	Animation(const std::string& animationPath, Model* model)
+	Animation(const std::string& animationPath, nelems::Model* model)
 	{
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(animationPath, aiProcess_Triangulate);
@@ -62,7 +62,7 @@ public:
 	}
 
 private:
-	void ReadMissingBones(const aiAnimation* animation, Model& model)
+	void ReadMissingBones(const aiAnimation* animation, nelems::Model& model)
 	{
 		int size = animation->mNumChannels;
 

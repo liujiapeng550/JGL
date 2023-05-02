@@ -156,6 +156,7 @@ namespace nshaders
 		glProgramUniform4fv(get_program_id(), myLoc, 1, glm::value_ptr(vec4));
 	}
 
+
 	void Shader::set_texture(int shader_param_id,int tex_type,unsigned int tex_id)
 	{
 		glActiveTexture(shader_param_id);
