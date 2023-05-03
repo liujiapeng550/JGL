@@ -14,7 +14,7 @@ namespace nui
       if (ImGui::Button("Open..."))
       {
         mFileDialog.SetTitle("Mesh");
-        //mFileDialog.SetFileFilters({ ".fbx", ".obj" });
+        mFileDialog.SetFileFilters({ ".fbx", ".obj" ,".dae"});
         mFileDialog.Open();
       }
       ImGui::SameLine(0, 5.0f);
@@ -27,7 +27,7 @@ namespace nui
         if (ImGui::Button("OpenMaterial..."))
         {
             mFileDialog.SetTitle("Material");
-            //mFileDialog.SetFileFilters({ ".xml"});
+            mFileDialog.SetFileFilters({ ".xml"});
             mFileDialog.Open();
         }
         ImGui::SameLine(0, 5.0f);
@@ -82,9 +82,11 @@ namespace nui
       if (title == "Material") {
          mShaderLoadCallback(file_path);
          mCurrentMaterialFile = file_path.substr(file_path.find_last_of("/\\") + 1);
-      }else if(title == "Mesh")
-        mMeshLoadCallback(file_path);
-        mCurrentMeshFile = file_path.substr(file_path.find_last_of("/\\") + 1);
+      }
+      else if (title == "Mesh") {
+          mMeshLoadCallback(file_path);
+          mCurrentMeshFile = file_path.substr(file_path.find_last_of("/\\") + 1);
+      }
       mFileDialog.ClearSelected();
     }
 

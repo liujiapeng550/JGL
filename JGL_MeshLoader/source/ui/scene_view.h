@@ -27,7 +27,10 @@ namespace nui
       mCamera = std::make_unique<nelems::Camera>(glm::vec3(0, 0, 3), 45.0f, 1.3f, 0.1f, 1000.0f);
       mMaterial = std::make_unique<Material>();
       load_shader(FileSystem::getPath("JGL_MeshLoader/resource/PBR.xml"));
+      loadSkyBox();
     }
+    void loadSkyBox();
+
     ~SceneView()
     {
       mShader->unload();
@@ -44,7 +47,7 @@ namespace nui
 
     std::shared_ptr<nelems::Mesh> get_mesh() { return mMesh; }
     std::shared_ptr<Material> get_Material() { return mMaterial; }
-    
+    void renderSkyBox();
     void on_mouse_move(double x, double y, nelems::EInputButton button);
 
     void on_mouse_wheel(double delta);
@@ -67,9 +70,12 @@ namespace nui
     std::shared_ptr<Material> mMaterial;
     Animation mAnimation;
     Animator mAnimator;
+   std::unique_ptr<nshaders::Shader> mSkyShader;
+   std::shared_ptr<nelems::Model> mSkyBox;
     // timing
     float mdeltaTime = 0.0f;
     float mlastFrame = 0.0f;
+    unsigned int mCubemapTexture;
   };
 }
 

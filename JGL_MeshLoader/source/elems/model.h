@@ -18,10 +18,10 @@ namespace nelems
         // model data 
         //vector<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
         vector<nelems::Mesh>  meshes;
-        string directory;
-        bool gammaCorrection;
+       // string directory;
+        //bool gammaCorrection;
 
-        Model(string const& path, bool gamma = false) : gammaCorrection(gamma)
+        Model(string const& path, bool gamma = false)// : gammaCorrection(gamma)
         {
             loadModel(path);
         }
@@ -55,7 +55,7 @@ namespace nelems
                 return;
             }
             // retrieve the directory path of the filepath
-            directory = path.substr(0, path.find_last_of('/'));
+            //directory = path.substr(0, path.find_last_of('/'));
 
             // process ASSIMP's root node recursively
             processNode(scene->mRootNode, scene);

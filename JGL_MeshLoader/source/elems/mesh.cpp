@@ -20,6 +20,10 @@ namespace nelems
       this->mVertexIndices = indices;
       create_buffers();
   }
+  Mesh::Mesh(float(&arr)[])
+  {
+
+  }
   Mesh::Mesh(const Mesh& other)
   {
       this->mVertices = other.mVertices;

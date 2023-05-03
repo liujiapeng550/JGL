@@ -35,6 +35,15 @@ namespace nelems
 			shader->set_vec3(mPosition, "camPos");
 		}
 
+		void setcam(nshaders::Shader* shader)
+		{
+			glm::mat4 model{ 1.0f };
+			shader->set_mat4(model, "model");
+			shader->set_mat4(glm::mat4(glm::mat3(mViewMatrix)), "view");
+			shader->set_mat4(get_projection(), "projection");
+			shader->set_vec3(mPosition, "camPos");
+		}
+
     void set_aspect(float aspect)
     {
       mProjection = glm::perspective(mFOV, aspect, mNear, mFar);

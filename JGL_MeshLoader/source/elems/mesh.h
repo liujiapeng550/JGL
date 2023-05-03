@@ -14,6 +14,7 @@ namespace nelems
 	public:
 		Mesh();
 		Mesh(std::vector<VertexHolder> vertices, std::vector<unsigned int> indices);
+		Mesh(float(&arr)[]);
 		// ¿½±´¹¹Ôìº¯Êý
 		Mesh(const Mesh& other);
 		virtual ~Mesh();
