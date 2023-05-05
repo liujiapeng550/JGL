@@ -23,6 +23,15 @@ namespace nui
 		mCubemapTexture = TextureSystem::loadCubemap(faces,false);
 
 	}
+	void SceneView::loadPlane()
+	{
+		std::string vsname = FileSystem::getPath("JGL_MeshLoader/shaders/buit_in/base_vs.shader");
+		std::string fsname = FileSystem::getPath("JGL_MeshLoader/shaders/buit_in/base_fs.shader");
+		mPlaneShader = std::make_unique<nshaders::Shader>(vsname.c_str(), fsname.c_str());
+		mPlane = std::make_shared<nelems::Model>(FileSystem::getPath("JGL_MeshLoader/resource/built_in/plane.fbx"));
+		mPlaneTexture = TextureSystem::getTextureId(FileSystem::getPath("JGL_MeshLoader/resource/built_in/textures/wood.png").c_str());
+
+	}
 	void SceneView::resize(int32_t width, int32_t height)
 	{
 		mSize.x = width;
@@ -43,8 +52,8 @@ namespace nui
 
 	void SceneView::load_mesh(const std::string& filepath)
 	{
-		if (!mMesh)
-			mMesh = std::make_shared<nelems::Mesh>();
+		if (!mModel)
+			mModel = std::make_shared<nelems::Model>();
 		mModel = std::make_shared<nelems::Model>(filepath);
 		mIsSkin = mModel->GetIsSkinInModel();
 		if(mIsSkin) {
@@ -82,17 +91,23 @@ namespace nui
 		// draw skybox as last
 		glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
 		mSkyShader->use();
-		//view = glm::mat4(glm::mat3(camera.GetViewMatrix())); // remove translation from the view matrix
-		//skyboxShader.setMat4("view", view);
-		//skyboxShader.setMat4("projection", projection);
 		mCamera->setcam(mSkyShader.get());
-
 		mSkyShader.get()->set_i1(GL_TEXTURE0, "skybox");
 		mSkyShader.get()->set_texture(GL_TEXTURE0, GL_TEXTURE_CUBE_MAP, mCubemapTexture);
 
 		mSkyBox->Draw();
 		glDepthFunc(GL_LESS); // set depth function back to default
 	}
+
+	void SceneView::renderPlane()
+	{
+		mPlaneShader->use();
+		mCamera->update(mPlaneShader.get());
+		mPlaneShader.get()->set_i1(GL_TEXTURE0, "baseMap");
+		mPlaneShader.get()->set_texture(GL_TEXTURE0, GL_TEXTURE_2D, mPlaneTexture);
+		mPlane->Draw();
+	}
+
 	void SceneView::render()
 	{
 		mFrameBuffer->bind();
@@ -102,7 +117,6 @@ namespace nui
 		mdeltaTime = currentFrame - mlastFrame;
 		mlastFrame = currentFrame;
 		mAnimator.UpdateAnimation(mdeltaTime);
-
 		//如果有骨骼蒙皮
 		if (mIsSkin) {
 			auto transforms = mAnimator.GetFinalBoneMatrices();
@@ -110,7 +124,7 @@ namespace nui
 				mShader.get()->set_mat4(transforms[i],"finalBonesMatrices[" + std::to_string(i) + "]");
 		}
 
-		if (mMesh && mShader)
+		if (mModel && mShader)
 		{
 			mShader.get()->set_f1((float)glfwGetTime(), "time");
 			if (m_shadername == "fur") {
@@ -120,32 +134,30 @@ namespace nui
 						//shader公共参数
 						mShader.get()->set_f1(i, "PassIndex");
 						mMaterial->update_shader_params(mShader.get());
-						//mMesh->render();
 						mModel->Draw();
-
 					}
 				}
 			}
 			else
 			{
 				mMaterial->update_shader_params(mShader.get());
-				//mMesh->render();
 				mModel->Draw();
+
 			}
+
 		}
 		else {
-			load_mesh(FileSystem::getPath("JGL_MeshLoader/resource/plane.fbx"));
+			load_mesh(FileSystem::getPath("JGL_MeshLoader/resource/cube.fbx"));
 		}
 
 		ImGui::Begin("Scene");
-
 		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
 		mSize = { viewportPanelSize.x, viewportPanelSize.y };
 		mCamera->set_aspect(mSize.x / mSize.y);
 		mCamera->update(mShader.get());
 
+		renderPlane();
 		renderSkyBox();
-
 
 		mFrameBuffer->unbind();
 

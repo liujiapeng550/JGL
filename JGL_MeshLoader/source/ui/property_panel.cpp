@@ -5,7 +5,7 @@ namespace nui
 {
   void Property_Panel::render(nui::SceneView* scene_view)
   {
-    auto mesh = scene_view->get_mesh();
+    auto model = scene_view->get_model();
 
     ImGui::Begin("Properties");
     if (ImGui::CollapsingHeader("Mesh", ImGuiTreeNodeFlags_DefaultOpen))
@@ -34,7 +34,7 @@ namespace nui
         ImGui::Text(mCurrentMaterialFile.c_str());
     }
 
-    if (ImGui::CollapsingHeader("Material") && mesh)
+    if (ImGui::CollapsingHeader("Material") && model)
     {
        auto material = scene_view->get_Material();
        map<string, float> floatTypeMap;

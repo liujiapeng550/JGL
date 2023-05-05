@@ -28,8 +28,11 @@ namespace nui
       mMaterial = std::make_unique<Material>();
       load_shader(FileSystem::getPath("JGL_MeshLoader/resource/PBR.xml"));
       loadSkyBox();
+      loadPlane();
+
     }
     void loadSkyBox();
+    void loadPlane();
 
     ~SceneView()
     {
@@ -40,14 +43,15 @@ namespace nui
     void render();
     void load_mesh(const std::string& filepath);
     void load_shader(const std::string& filepath);
-    void set_mesh(std::shared_ptr<nelems::Mesh> mesh)
+    void set_model(std::shared_ptr<nelems::Model> model)
     {
-      mMesh = mesh;
+        mModel = model;
     }
 
-    std::shared_ptr<nelems::Mesh> get_mesh() { return mMesh; }
+    std::shared_ptr<nelems::Model> get_model() { return mModel; }
     std::shared_ptr<Material> get_Material() { return mMaterial; }
     void renderSkyBox();
+    void renderPlane();
     void on_mouse_move(double x, double y, nelems::EInputButton button);
 
     void on_mouse_wheel(double delta);
@@ -62,7 +66,6 @@ namespace nui
     std::unique_ptr<nrender::OpenGL_FrameBuffer> mFrameBuffer;
     std::unique_ptr<nshaders::Shader> mShader;
     std::unique_ptr<nelems::Light> mLight;
-    std::shared_ptr<nelems::Mesh> mMesh;
     std::shared_ptr<nelems::Model> mModel;
     bool mIsSkin=false;
     glm::vec2 mSize;
@@ -70,12 +73,15 @@ namespace nui
     std::shared_ptr<Material> mMaterial;
     Animation mAnimation;
     Animator mAnimator;
-   std::unique_ptr<nshaders::Shader> mSkyShader;
+    std::unique_ptr<nshaders::Shader> mSkyShader;
    std::shared_ptr<nelems::Model> mSkyBox;
+   std::unique_ptr<nshaders::Shader> mPlaneShader;
+   std::shared_ptr<nelems::Model> mPlane;
     // timing
     float mdeltaTime = 0.0f;
     float mlastFrame = 0.0f;
     unsigned int mCubemapTexture;
+    unsigned int mPlaneTexture;
   };
 }
 

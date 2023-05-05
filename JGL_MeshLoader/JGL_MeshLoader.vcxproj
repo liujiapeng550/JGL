@@ -229,6 +229,8 @@
     <None Include="resource\node-move-on-plane-demo-scene.fbx" />
     <None Include="shaders\animmodel_fs.shader" />
     <None Include="shaders\animmodel_vs.shader" />
+    <None Include="shaders\buit_in\base_fs.shader" />
+    <None Include="shaders\buit_in\base_vs.shader" />
     <None Include="shaders\buit_in\skybox_fs.shader" />
     <None Include="shaders\buit_in\skybox_vs.shader" />
     <None Include="shaders\common_fs.shader" />
