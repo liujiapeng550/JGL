@@ -57,7 +57,8 @@ namespace nui
 		mModel = std::make_shared<nelems::Model>(filepath);
 		mIsSkin = mModel->GetIsSkinInModel();
 		if(mIsSkin) {
-			//¼ÓÔØ¶¯»­
+			//ï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½
+			load_shader(FileSystem::getPath("JGL_MeshLoader/resource/Anim.xml"));
 			mAnimation = Animation(filepath, mModel.get());
 			mAnimator = Animator(&mAnimation);
 
@@ -117,7 +118,7 @@ namespace nui
 		mdeltaTime = currentFrame - mlastFrame;
 		mlastFrame = currentFrame;
 		mAnimator.UpdateAnimation(mdeltaTime);
-		//Èç¹ûÓÐ¹Ç÷ÀÃÉÆ¤
+		//ï¿½ï¿½ï¿½ï¿½Ð¹ï¿½ï¿½ï¿½ï¿½ï¿½Æ¤
 		if (mIsSkin) {
 			auto transforms = mAnimator.GetFinalBoneMatrices();
 			for (int i = 0; i < transforms.size(); ++i)
@@ -131,7 +132,7 @@ namespace nui
 				if (mMaterial->isMultyPass()) {
 					int passcount = int(mMaterial->getFloatMap()["Pass"]);
 					for (int i = 0; i < passcount; i += 1) {
-						//shader¹«¹²²ÎÊý
+						//shaderï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						mShader.get()->set_f1(i, "PassIndex");
 						mMaterial->update_shader_params(mShader.get());
 						mModel->Draw();
