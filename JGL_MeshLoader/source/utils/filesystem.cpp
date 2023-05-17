@@ -1,7 +1,7 @@
 #include "FileSystem.h"
 #include <cstdlib>
 
-const char* logl_root = "D:/gitDeom/JGL";
+static const char* logl_root = "D:/gitDemo/JGL";
 
 //D:\gitDeom\JGL\JGL_MeshLoader
 std::string FileSystem::getPath(const std::string& path)

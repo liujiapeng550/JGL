@@ -52,8 +52,7 @@ namespace nui
 
 	void SceneView::load_mesh(const std::string& filepath)
 	{
-		if (!mModel)
-			mModel = std::make_shared<nelems::Model>();
+		mModel = std::make_shared<nelems::Model>();
 		mModel = std::make_shared<nelems::Model>(filepath);
 		mIsSkin = mModel->GetIsSkinInModel();
 		if(mIsSkin) {
@@ -63,8 +62,6 @@ namespace nui
 			mAnimator = Animator(&mAnimation);
 
 		}
-
-		//mMesh->load(filepath);
 	}
 
 	void SceneView::load_shader(const std::string& filepath)
@@ -156,8 +153,9 @@ namespace nui
 		mSize = { viewportPanelSize.x, viewportPanelSize.y };
 		mCamera->set_aspect(mSize.x / mSize.y);
 		mCamera->update(mShader.get());
-
-		renderPlane();
+		if (m_showPlane) {
+			renderPlane();
+		}
 		renderSkyBox();
 
 		mFrameBuffer->unbind();

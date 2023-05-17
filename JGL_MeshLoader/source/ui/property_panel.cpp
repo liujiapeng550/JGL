@@ -72,6 +72,15 @@ namespace nui
       nimgui::draw_vec3_widget("Position", scene_view->get_light()->mPosition, 80.0f);
     }
 
+    if (ImGui::CollapsingHeader("Default_Plane"))
+    {
+
+        ImGui::Separator();
+        static bool check = false;
+        ImGui::Checkbox("Show Plane", &check);
+        scene_view->set_plane_show(check);
+    }
+
     ImGui::End();
 
     mFileDialog.Display();

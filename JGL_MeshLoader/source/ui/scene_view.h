@@ -32,6 +32,7 @@ namespace nui
 
     }
     void loadSkyBox();
+
     void loadPlane();
 
     ~SceneView()
@@ -60,7 +61,7 @@ namespace nui
     {
       mCamera->reset();
     }
-
+    void set_plane_show(bool isShow) { m_showPlane = isShow; };
   private:
     std::unique_ptr<nelems::Camera> mCamera;
     std::unique_ptr<nrender::OpenGL_FrameBuffer> mFrameBuffer;
@@ -77,6 +78,9 @@ namespace nui
    std::shared_ptr<nelems::Model> mSkyBox;
    std::unique_ptr<nshaders::Shader> mPlaneShader;
    std::shared_ptr<nelems::Model> mPlane;
+   //
+   bool m_showPlane;
+
     // timing
     float mdeltaTime = 0.0f;
     float mlastFrame = 0.0f;
