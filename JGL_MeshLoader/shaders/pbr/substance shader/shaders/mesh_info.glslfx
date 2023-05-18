@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sbsbatchnode SYSTEM "glslfx.dtd">
+<glslfx version="1.0.0" author="allegorithmic.com">
+
+    <!-- TECHNIQUES -->
+    <technique name="Normal">
+        <!-- SHADERS -->
+        <shader type="vertex"       filename="mesh_info/vs.glsl"/>
+        <shader type="fragment"     filename="mesh_info/fs_normal.glsl"/>
+    </technique>
+
+    <technique name="Tangent">
+        <!-- SHADERS -->
+        <shader type="vertex"       filename="mesh_info/vs.glsl"/>
+        <shader type="fragment"     filename="mesh_info/fs_tangent.glsl"/>
+    </technique>
+
+    <technique name="Binormal">
+        <!-- SHADERS -->
+        <shader type="vertex"       filename="mesh_info/vs.glsl"/>
+        <shader type="fragment"     filename="mesh_info/fs_binormal.glsl"/>
+    </technique>
+
+    <technique name="UV">
+        <!-- SHADERS -->
+        <shader type="vertex"       filename="mesh_info/vs.glsl"/>
+        <shader type="fragment"     filename="mesh_info/fs_uv.glsl"/>
+    </technique>
+
+    <technique name="UV Tile">
+        <!-- SHADERS -->
+        <shader type="vertex"       filename="mesh_info/vs.glsl"/>
+        <shader type="fragment"     filename="mesh_info/fs_uvtile.glsl"/>
+
+        <uniform name="displayUVTileOnly" guiName="Display UV Tile" default="false"      guiWidget="checkbox" />
+        <uniform name="uvTileCoords"      guiName="UV Tile"         default="0" guiWidget="slider" guiMin="10" guiMax="10" guiStep="1"/>
+
+    </technique>
+
+    <technique name="Vertex Color">
+        <!-- SHADERS -->
+        <shader type="vertex"       filename="mesh_info/vs.glsl"/>
+        <shader type="fragment"     filename="mesh_info/fs_vertexcolor.glsl"/>
+    </technique>
+
+    <!-- INPUT VERTEX FORMAT -->
+    <vertexformat name="iVS_Position"     semantic="position"/>
+    <vertexformat name="iVS_Normal"       semantic="normal"/>
+    <vertexformat name="iVS_UV"           semantic="texcoord0"/>
+    <vertexformat name="iVS_Tangent"      semantic="tangent0"/>
+    <vertexformat name="iVS_Binormal"     semantic="binormal0"/>
+    <vertexformat name="iVS_VertexColor"  semantic="color"/>
+
+    <!-- MATRICES -->
+    <uniform name="worldViewProjMatrix"         semantic="worldviewprojection"/>
+    <uniform name="worldInverseTransposeMatrix" semantic="worldinversetranspose"/>
+
+</glslfx>

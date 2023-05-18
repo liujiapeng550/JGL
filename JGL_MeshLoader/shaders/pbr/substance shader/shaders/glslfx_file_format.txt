@@ -1,0 +1,418 @@
+1. File Format
+===============================================================================
+GLSLFX file format is a XML file.
+Comments are supported:
+<!-- This is a comment -->
+
+2. Header and Root node
+===============================================================================
+The Xml root node Element is named 'glslfx'.
+Example:
+	<?xml version="1.0" encoding="UTF-8"?>
+	<glslfx version="1.0.0" author="allegorithmic.com">
+		<!-- BODY -->
+		<!-- ... -->
+	</glslfx>
+
+
+3. Body
+===============================================================================
+3.1. Techniques
+---------------
+XML Element that describes a technique.
+A technique is a variation of the current FX.
+A GLSLFX can contains multiples techniques but at least one technique has to be defined.
+The geometry will be rendered with one of the techniques defined by the application.
+
+XML Element Definition:
+	- Name: 'technique'
+	- Attributes:
+		- 'name': The value is any string used to name the technique
+
+Example:
+	<!-- TECHNIQUES -->
+	<technique name="LowResShader">
+	    <!-- ... -->
+	</technique>
+	<!-- ... -->
+	<technique name="HighResShader">
+	    <!-- ... -->
+	</technique>
+ 
+The XML element can have multiples children.
+The elements defined in a techniques override the elements defined globally. 
+For example, it is used to override some uniforms values and obtain FX variation for this technique.
+
+3.1.1 Shaders
+-------------
+Set the glsl shader files for each type.
+
+XML Element Definition:
+	- Name: 'shader'
+	- Attributes:
+		- 'type': The glsl shader type.
+
+		|---------------------------------------------------|
+		| 'type' value	| Description 						|
+		|---------------------------------------------------|
+		| vertex		| Vertex shader						|
+		| geometry		| Geometry shader					|
+		| tess_control	| Tessellation Control shader		|
+		| tess_eval		| Tessellation Evaluation shader	|
+		| fragment		| Fragment shader					|
+		|---------------------------------------------------|
+
+	- 'filename': The path of the glsl shader file. Can be absolute or relative to the glslfx file
+	- 'primitiveType': The method to render the primitive
+
+		|-------------------------------------------------------------------|
+		| 'primitiveType' value	| Description 								|
+		|-------------------------------------------------------------------|
+		| position				| Render as points							|
+		| lineloop				| Render as line loop 						|
+		| patch[1..N]			| Render as patches with [1..N] vertices 	|
+		|-------------------------------------------------------------------|
+
+Example:
+	<!-- TECHNIQUES -->
+	<technique name="Tessellation">
+	    <!-- SHADERS -->
+	    <shader type="vertex" filename="tessellation_parallax/tessellation/vs.glsl" primitiveType="patch3"/>
+	    <shader type="tess_control" filename="tessellation_parallax/tessellation/tcs.glsl"/>
+	    <shader type="tess_eval" filename="tessellation_parallax/tessellation/tes.glsl"/>
+	    <shader type="fragment" filename="tessellation_parallax/fs.glsl"/> 
+	</technique>
+
+3.1.2 Properties
+----------------
+Allow to set up some part of the OpenGL state.
+
+XML Element Definition:
+	- Name: 'property'
+	- Attributes:
+		- 'name': The name of the property to set. The name are based on the OpenGL function or glEnum name:
+			- enum:
+				- without the 'GL_' prefix, in lower case.
+				- Ex:
+					glEnable(GL_BLEND_ENABLE) => "<property name="blend_enabled" value="true"/>"
+					glDisable(GL_CULL_FACE) => "<property name="cull_face_enabled" value="false"/>"
+			- functions:
+				- without the 'gl' prefix, in lower case and with all words separated with '_' character.
+				- Ex:
+					glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA) => "<property name="blend_func" value="src_alpha,one_minus_src_alpha"/>"
+					'value': The value of the property
+			- Allowed properties are:
+				|-------------------|---------------------------|-------------------------------------------------------|
+				| 'name' values		| 'value' values			| Description 											|
+				|-------------------|---------------------------|-------------------------------------------------------|
+				| blend_enabled		| boolean 					| Enable/disable the blending mode 						|
+				| 					| true 						| 														|
+				| 					| false 					| 														|
+				|-------------------|---------------------------|-------------------------------------------------------|
+				| blend_func		| string, string			| Set the sources and destination blending functions	| 
+				| 					| zero						| for OpenGL enum GL_ZERO								| 
+				| 					| one						| for OpenGL enum GL_ONE								| 
+				| 					| src_color					| for OpenGL enum GL_SRC_COLOR							| 
+				| 					| one_minus_src_color 		| for OpenGL enum GL_ONE_MINUS_SRC_COLOR				| 
+				| 					| dst_color					| for OpenGL enum GL_DST_COLOR							| 
+				| 					| one_minus_dst_color		| for OpenGL enum GL_ONE_MINUS_DST_COLOR				| 
+			 	| 					| src_alpha					| for OpenGL enum GL_SRC_ALPHA							| 
+			 	| 					| one_minus_src_alpha 		| for OpenGL enum GL_ONE_MINUS_SRC_ALPHA				| 
+				| 					| dst_alpha					| for OpenGL enum GL_DST_ALPHA							| 
+			 	|					| one_minus_dst_alpha		| for OpenGL enum GL_ONE_MINUS_DST_ALPHA				| 
+				| 					| constant_color			| for OpenGL enum GL_CONSTANT_COLOR						| 
+				| 					| one_minus_constant_color	| for OpenGL enum GL_ONE_MINUS_CONSTANT_COLOR			| 
+				| 					| constant_alpha			| for OpenGL enum GL_CONSTANT_ALPHA						| 
+			 	| 					| one_minus_constant_alpha	| for OpenGL enum GL_ONE_MINUS_CONSTANT_ALPHA			| 
+			 	| 					| src_alpha_saturate		| for OpenGL enum GL_SRC_ALPHA_SATURATE					| 
+			 	| 					| src1_color				| for OpenGL enum GL_SRC1_COLOR							| 
+				| 				 	| one_minus_src1_color		| for OpenGL enum GL_ONE_MINUS_SRC1_COLOR				| 
+				|					| src1_alpha				| for OpenGL enum GL_SRC1_ALPHA							| 
+				| 					| one_minus_src1_alpha		| for OpenGL enum GL_ONE_MINUS_SRC1_ALPHA				| 
+				|-------------------|---------------------------|-------------------------------------------------------|
+				| cull_face_enabled	| boolean					| Enable/disable the face culling						| 
+			 	| 					| true						| 														| 
+				| 					| false						| 														| 
+				|-------------------|---------------------------|-------------------------------------------------------|
+			 	| cull_face_mode	| string					| Set the face culling mode								| 
+				| 					| front						| for OpenGL enum GL_FRONT								| 
+				| 					| back						| for OpenGL enum GL_BACK								| 
+				| 					| front_and_back			| for OpenGL enum GL_FRONT_AND_BACK						| 
+				|-------------------|---------------------------|-------------------------------------------------------|
+
+Example:
+	<!-- TECHNIQUES -->
+	<technique name="LowResShader">
+		<!-- PROPERTIES -->
+		<property name="blend_enabled" value="true"/>
+		<property name="blend_func" value="src_alpha,one_minus_src_alpha"/>
+		<property name="cull_face_enabled" value="true"/>
+		<property name="cull_face_mode" value="back"/> 
+	</technique>
+ 
+3.1.3 Uniforms
+--------------
+Allow to override some uniforms defined globally.
+This allow to change shader behavior for this technique.
+See the Uniforms definition chapter for more details about their definition.
+
+Example:
+
+	<!-- TECHNIQUES -->
+	<technique name="Tesselation">
+		<!-- SHADERS -->
+		<shader type="vertex" filename="tessellation_parallax/tessellation/vs.glsl" primitiveType="patch3"/>
+		<shader type="tess_control" filename="tessellation_parallax/tessellation/tcs.glsl"/>
+		<shader type="tess_eval" filename="tessellation_parallax/tessellation/tes.glsl"/>
+		<shader type="fragment" filename="tessellation_parallax/fs.glsl"/>
+		<!-- UNIFORMS -->
+		<uniform name="parallax_mode" guiName="Parallax Mode" min="0" max="0" />
+		<uniform name="enableTilingInFS" guiName="Tiling Enabled In FS" min="0" max="0" />
+		<uniform name="tessellationFactor" guiName="Tessellation Factor" default="4" min="1" max="64" guiStep="1" guiWidget="slider"/>
+	</technique>
+	<technique name="Parallax">
+		<!-- SHADERS -->
+		<shader type="vertex" filename="tessellation_parallax/parallax/vs.glsl"/>
+		<shader type="fragment" filename="tessellation_parallax/fs.glsl"/>
+		<!-- UNIFORMS -->
+		<uniform name="parallax_mode" guiName="Parallax Mode" min="1" max="1" />
+		<uniform name="enableTilingInFS" guiName="Tiling Enabled In FS" min="1" max="1" />
+	</technique>
+
+3.2. Input Vertex Format
+------------------------
+This allow to define the semantic of each attributes define in the vertex shader.
+
+XML Element Definition:
+	- Name: 'vertexformat'
+	- Attributes:
+		- 'name': The name of the attribute as defined in the vertex shader.
+		- 'semantic': The semantic of the attribute.
+
+		|-------------------|-----------------------------------------------|
+		| 'semantic' Value 	| Description 									|
+		|-------------------|-----------------------------------------------|
+		| position 			| Vertex position (float3)						|
+		| normal 			| Vertex normal (float3)						|
+		| texcoord[0..N] 	| Vertex texture coordinate buffer N (float2)	|
+		| tangent[0..N] 	| Vertex tangent buffer N (float4)				|
+		| binormal[0..N] 	| Vertex binormal buffer N (float4)				|
+		|-------------------|-----------------------------------------------|
+
+Example:
+
+	<?xml version="1.0" encoding="UTF-8"?>
+	<glslfx version="1.0.0" author="allegorithmic.com">
+		<!-- BODY -->
+		<!-- ... -->
+		<!-- INPUT VERTEX FORMAT -->
+		<vertexformat name="iVS_Position" semantic="position"/>
+		<vertexformat name="iVS_Normal" semantic="normal"/>
+		<vertexformat name="iVS_UV" semantic="texcoord0"/>
+		<vertexformat name="iVS_Tangent" semantic="tangent0"/>
+		<vertexformat name="iVS_Binormal" semantic="binormal0"/>
+	</glslfx>
+ 
+3.3. Samplers
+-------------
+This allow to define the usage of each samplers.
+It is used by the application to known which texture to set in the specified samplers.
+
+XML Element Definition:
+	- Name: 'sampler'
+	- Attributes:
+		- 'name': The name of the sampler variable in the shader file.
+		- 'usage': The usage of the sampler. It matches the usage specified in the Ouput node of the graph.
+
+		|-------------------|---------------------------------------------------|
+		| 'usage' Value 	| Description 										|
+		|-------------------|---------------------------------------------------|
+		| diffuse 			| Diffuse map 										|
+		| opacity			| Opacity map										|
+		| emissive			| Emissive map										|
+		| ambientocclusion	| Ambient occlusion map								|
+		| ambient			| Ambient map										|
+		| mask				| Mask map											|
+		| detailnormal		| Detail Normal map									|
+		| normal			| Normal map										|
+		| bump				| Bump map											|
+		| height			| Height map										|
+		| displacement		| Displacement map									|
+		| specularlevel		| Specular level map								|
+		| specularcolor		| Specular color map								|
+		| specular			| Specular map										|
+		| glossiness		| Glossiness map									|
+		| roughness			| Roughness map										|
+		| anisotropylevel	| Anisothropy level map								|
+		| anisotropyangle	| Anisothropy angle map								|
+		| transmissive		| Transmissive map									|
+		| reflection		| Reflection map									|
+		| refraction		| Refraction map									|
+		| environment		| Environment map (cube map)						|
+		| panorama			| The Panorama Map (Latitude/Longitude Map)			|
+		| samplespostable	| The Van Der Corput Map (512x4 float32 texture)	|
+		|-------------------|---------------------------------------------------|
+ 
+			- Multiple usages are supported. 
+				Example:
+					<!-- SAMPLERS -->
+						<sampler name="baseColorMap" usage="basecolor,diffuse"/>
+					<!-- ... -->
+
+		- 'isHidden': Boolean that indicates if the sampler should appear in the GUI
+			Example:
+				<!-- SAMPLERS -->
+					<sampler name="vanDerCorputMap" usage="samplespostable" ishidden="true"/>
+				<!-- ... -->
+
+		- Wrapping Mode:
+
+		|---------------------------------------------------|-------------------|
+		| Name 												| Value 			|
+		|---------------------------------------------------|-------------------|
+		| texture_wrap_s, texture_wrap_t, texture_wrap_r 	| clamp_to_edge  	|
+		| 													| clamp_to_border 	|
+		| 													| mirrored_repeat 	|
+		| 													| repeat 		 	|
+		|---------------------------------------------------|-------------------|
+
+		- Texture Filter:
+
+		|-------------------------------------------|---------------------------|
+		| Name 										| Value 					|
+		|-------------------------------------------|---------------------------|
+		| texture_min_filter, texture_mag_filter 	| nearest  					|
+		| 											| linear 					|
+		| 											| nearest_mipmap_nearest 	|
+		| 											| linear_mipmap_nearest 	|
+		| 											| nearest_mipmap_linear 	|
+		| 											| linear_mipmap_linear 		|
+		|-------------------------------------------|---------------------------|
+
+ 
+Example:
+	<?xml version="1.0" encoding="UTF-8"?>
+	<glslfx version="1.0.0" author="allegorithmic.com">
+		<!-- BODY -->
+		<!-- ... -->
+		<!-- SAMPLERS -->
+		<sampler name="baseColorMap" usage="basecolor,diffuse"/>
+		<sampler name="heightMap" usage="height"/>
+		<sampler name="normalMap" usage="normal"/>
+		<sampler name="detailNormalMap" usage="detailNormal"/>
+		<sampler name="emissiveMap" usage="emissive"/>
+		<sampler name="specularMap" usage="specular"/>
+		<sampler name="opacityMap" usage="opacity"/>
+		<sampler name="environmentMap" usage="environment"/>
+	</glslfx>
+ 
+3.4. Uniforms
+-------------
+This allow to add additional information on each shader uniforms.
+
+3.4.1 Matrix
+------------
+Describe which matrix to store in the specified uniform.
+XML Element Definition:
+	- Name: 'uniform'
+	- Attributes:
+		- 'name': The name of the uniform in the shader file.
+		- 'semantic': The semantic of the uniform. (All matrices are float16).
+
+		|-----------------------|-----------------------------------|
+		| 'semantic' value		| Description						|
+		|-----------------------|-----------------------------------|
+		| world 				| World Matrix 						|
+		| worldinversetranspose | World Inverse Transpose Matrix 	|
+		| worldviewprojection	| World View Projection Matrix		|
+		| viewinverse			| World Inverse Matrix				|
+		| worldview				| World View Matrix					|
+		| modelview				| Model View Matrix					|
+		| projection			| Projection Matrix 				|
+		|-----------------------|-----------------------------------|
+
+Example:
+	<?xml version="1.0" encoding="UTF-8"?>
+	<glslfx version="1.0.0" author="allegorithmic.com">
+		<!-- BODY -->
+		<!-- ... -->
+		<!-- MATRICES -->
+		<uniform name="worldMatrix" semantic="world"/>
+		<uniform name="worldViewProjMatrix" semantic="worldviewprojection"/>
+		<uniform name="worldViewMatrix" semantic="worldview"/>
+		<uniform name="worldInverseTransposeMatrix" semantic="worldinversetranspose"/>
+		<uniform name="viewInverseMatrix" semantic="viewinverse"/>
+		<uniform name="modelViewMatrix" semantic="modelview"/>
+		<uniform name="projectionMatrix" semantic="projection"/>
+	</glslfx>
+ 
+3.4.2 Scene parameters
+----------------------
+Describe which scene data to store in the specified uniform.
+
+XML Element Definition:
+	- Name: 'uniform'
+	- Attributes:
+		- 'name': The name of the uniform in the shader file.
+		- 'semantic': The semantic of the uniform.
+
+		|-----------------------|-----------------------------------------------|
+		| 'semantic' value		| Description									|
+		|-----------------------|-----------------------------------------------|
+		| ambient 				| Scene Ambient Color (float3, rgbF) 			|
+		| lightposition[0..N]	| Position of the scene's Nth light (float3) 	|
+		| lightcolor[0..N]		| Color of the scene's Nth light (float3)		|
+		| isdirectxnormal 		| Indicate if the parameter controls the 		|
+		|						| normal format (i.e. is the Y component of the |
+		|						| normal texture is flipped) (bool) 			|
+		| uvwscale		 		| Scale of the UVW (float3)						|
+		|-----------------------|-----------------------------------------------|
+
+Example:
+	<?xml version="1.0" encoding="UTF-8"?>
+	<glslfx version="1.0.0" author="allegorithmic.com">
+		<!-- BODY -->
+		<!-- ... -->
+		<!-- SCENE PARAMETERS -->
+		<uniform name="AmbiColor" semantic="ambient"/>
+		<uniform name="Lamp0Pos" semantic="lightposition0"/>
+		<uniform name="Lamp0Color" semantic="lightcolor0"/>
+		<uniform name="Lamp1Pos" semantic="lightposition1"/>
+		<uniform name="Lamp1Color" semantic="lightcolor1"/>
+	</glslfx>
+ 
+3.4.3 Other parameters
+----------------------
+Other additional information can be add to each uniforms to:
+	- define the default value
+	- clamp values
+	- control the way the uniform will be display in the application:
+	- set the label
+	- set the widget info used to edit the value in the application:
+	- widget name, min, max, increment/decrement step
+	- group uniforms in group widgets
+
+As the Uniforms can be override for each techniques, it allows to display a specific gui setup for each techniques.
+
+XML Element Definition:
+	- Name: 'uniform'
+	- Attributes:
+		- 'name': The name of the uniform in the shader file.
+		- 'default': The uniform default value
+		- 'min': The min value of the validity range
+		- 'max': The max value of the validity range
+		- 'guiName': The name of the uniform in the GUI of the application
+		- 'guiGroup': The name of the group to put the uniform in the GUI of the application
+		- 'guiWidget': The name of the widget used to edit the uniform value in the GUI of application
+
+		|-----------------------|-----------------------------------------------|
+		| 'guiWidget' value		| Description									|
+		|-----------------------|-----------------------------------------------|
+		| slider 				| Slider widget for floatN 						|
+		| angle					| Angle widget for float						| 
+		| color					| Color widget for float3, float4 color 		|
+		| checkbox				| CheckBox widget for bool 						|
+		|-----------------------|-----------------------------------------------|
+
+		- 'guiMin': The min value of the widget
+		- 'guiMax': The max value of the widget

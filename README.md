@@ -7,8 +7,8 @@
 2. 星空效果
 
 3. LUT shader
- 
 
+[(2条消息) [OpenGL\] 动态的水面模拟_opengl 水波_ZJU_fish1996的博客-CSDN博客](https://blog.csdn.net/zju_fish1996/article/details/52317363)
 
 Glew:
 http://glew.sourceforge.net/
