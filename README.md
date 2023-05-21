@@ -4,8 +4,8 @@
 
 日常学习shader使用项目
 
--1.[Editor](sections/JGLEditor.md)
--2.[模拟2d天气效果](sections/weather.md)
+- 1.[Editor](sections/JGLEditor.md)
+- 2.[模拟2d天气效果](sections/weather.md)
 1. 模拟2d天气效果
 
 2. 星空效果
