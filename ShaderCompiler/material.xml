@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="gb2312"?>
-<Materia>
-		<Params>
-			<Param Name="color" Type="float3" Value ="1.0,1.0,1.0" UiLabel="Color"  Default="FALSE" Editable="FALSE" />
-      <Param Name="roughness" Type="float" Value ="1.0" UiLabel="Roughness"  Default="FALSE" Editable="FALSE" />
-      <Param Name="metallic" Type="float"  Value ="1.0" UiLabel="Metallic"  Default="FALSE" Editable="FALSE" />
-		</Params>
-</Materia>
