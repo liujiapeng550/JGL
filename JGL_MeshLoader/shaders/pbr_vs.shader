@@ -7,16 +7,14 @@ layout(location = 2) in vec2 aTexCoords;
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
-uniform vec4 color;
+uniform vec3 color;
 
 out vec3 WorldPos;
 out vec3 Normal;
-out vec4 Color;
 out vec2 TexCoords;
 void main()
 {
 	TexCoords = aTexCoords;
-	Color = color;
 	WorldPos = vec3(model * vec4(aPosition, 1.0));
 	Normal = aNormal;
 
