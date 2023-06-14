@@ -21,11 +21,11 @@ namespace nelems
        // string directory;
         //bool gammaCorrection;
         Model() {};
-        Model(string const& path, bool gamma = false)// : gammaCorrection(gamma)
+        Model(string const& path,bool gamma = false)// : gammaCorrection(gamma)
         {
+            m_modelPath = path;
             loadModel(path);
         }
-
         // draws the model, and thus all its meshes
         void Draw()
         {
@@ -37,8 +37,10 @@ namespace nelems
 
         auto& GetBoneInfoMap() { return m_BoneInfoMap; }
         int& GetBoneCount() { return m_BoneCounter; }
+        map<string, pair<unsigned int, string>> GetTexturesMap() { return m_Textures_map; }
     private:
-
+        string m_modelPath;
+        map<string, pair<unsigned int, string>> m_Textures_map;
         map<string, BoneInfo> m_BoneInfoMap;
         int m_BoneCounter = 0;
         bool mSkinInModel = false;
@@ -159,7 +161,11 @@ namespace nelems
                     indices.push_back(face.mIndices[j]);
             }
             aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-
+           
+            if (material->GetTextureCount(aiTextureType_DIFFUSE)>0)
+                m_Textures_map["texture_diffuse"] = loadMaterialTextures(material, aiTextureType_DIFFUSE);
+            //textures_map["specularMaps"] = loadMaterialTextures(material, aiTextureType_SPECULAR);
+    
             //vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
             //textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
             //vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
@@ -174,6 +180,29 @@ namespace nelems
             return Mesh(vertices, indices);
 
         }
+        
+        pair<unsigned int, string> loadMaterialTextures(aiMaterial* mat, aiTextureType type)
+        {
+            map<string, pair<unsigned int, string>> textures_map;
+            for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
+            {
+                aiString str;
+                mat->GetTexture(type, i, &str);
+                //string tex_abl_path = m_modelPath+
+                string directory;
+                const size_t last_slash_idx = m_modelPath.rfind('\\');
+                if (std::string::npos != last_slash_idx)
+                {
+                    directory = m_modelPath.substr(0, last_slash_idx);
+                    directory = directory + "\\" + str.C_Str();
+
+                }
+
+                unsigned int tex_id = TextureSystem::getTextureId(directory.c_str());
+                return pair(tex_id, directory.c_str());
+            }
+        }
+
 
         void SetVertexBoneData(VertexHolder& vertex, int boneID, float weight)
         {

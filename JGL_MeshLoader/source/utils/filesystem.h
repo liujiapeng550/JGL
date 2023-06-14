@@ -16,10 +16,11 @@ public:
 
     static std::string getPath(const std::string& path);
 
+    static std::string const& getRoot();
+
 
 private:
 
-    static std::string const& getRoot();
 
     static Builder getPathBuilder();
 

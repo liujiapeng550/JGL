@@ -4,6 +4,8 @@ Material::Material():name("default")
 {
 }
 
+
+
 void Material::load(const char* xmlPath)
 {
 	XMLDocument doc;
@@ -85,4 +87,9 @@ Material::~Material() {
 	mFloat_map.clear();
 	// 清除浮点向量映射
 	mFloat3_map.clear();
+}
+
+void Material::set_textures(map<string, pair<unsigned int, string>> textures)
+{
+	mTexture_map = textures;
 }

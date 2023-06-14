@@ -60,7 +60,7 @@ namespace nui
 			load_shader(FileSystem::getPath("JGL_MeshLoader/resource/Anim.xml"));
 			mAnimation = Animation(filepath, mModel.get());
 			mAnimator = Animator(&mAnimation);
-
+			mMaterial->set_textures(mModel->GetTexturesMap());
 		}
 	}
 

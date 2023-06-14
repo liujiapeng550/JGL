@@ -32,6 +32,7 @@ class Material {
 public:
 	Material();
     ~Material();
+	void set_textures(map<string, pair<unsigned int, string>> textures);
 	void load(const char* xmlPath);
 	void print() {
 		cout << "Name: " << name << endl;
