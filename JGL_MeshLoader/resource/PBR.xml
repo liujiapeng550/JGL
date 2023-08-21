@@ -7,17 +7,22 @@ shader= "JGL_MeshLoader/shaders/pbr_fs.shader"
   <Param
 Name="baseMap"
 Type ="Texture"
-Default ="JGL_MeshLoader/resource/textures/weather/base.png"
+Default ="JGL_MeshLoader/resource/textures/PBR/albedo.png"
 />
   <Param
-Name ="metallic"
-Type ="float"
-Default ="0.1"
+Name="metallicMap"
+Type ="Texture"
+Default ="JGL_MeshLoader/resource/textures/PBR/metallic.png"
 />
   <Param
-Name ="roughness"
-Type ="float"
-Default ="0.2"
+Name="roughnessMap"
+Type ="Texture"
+Default ="JGL_MeshLoader/resource/textures/PBR/roughness.png"
+/>
+  <Param
+Name="normalMap"
+Type ="Texture"
+Default ="JGL_MeshLoader/resource/textures/PBR/normal.png"
 />
   <Param
 Name ="color"

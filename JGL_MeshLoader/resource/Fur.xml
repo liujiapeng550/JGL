@@ -6,7 +6,12 @@ shader= "JGL_MeshLoader/shaders/fur_fs.shader"
     <Param
 Name="FurNoiseTex"
 Type ="Texture"
-Default ="JGL_MeshLoader/resource/textures/weather/nosie.png"
+Default ="JGL_MeshLoader/resource/textures/Fur/noise_1.tga"
+/>
+  <Param
+Name="FurColorTex"
+Type ="Texture"
+Default ="JGL_MeshLoader/resource/textures/Fur/fur_1.tga"
 />
     <Param
 Name="FurLength" 

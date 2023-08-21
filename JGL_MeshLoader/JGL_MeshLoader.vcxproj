@@ -227,6 +227,8 @@
     <None Include="resource\node-move-on-plane-demo-scene.fbx" />
     <None Include="shaders\animmodel_fs.shader" />
     <None Include="shaders\animmodel_vs.shader" />
+    <None Include="shaders\bloom_fs.shader" />
+    <None Include="shaders\bloom_vs.shader" />
     <None Include="shaders\buit_in\base_fs.shader" />
     <None Include="shaders\buit_in\base_vs.shader" />
     <None Include="shaders\buit_in\skybox_fs.shader" />
@@ -253,6 +255,7 @@
     <Text Include="source\3rdparty\imgui\LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="resource\Bloom.xml" />
     <Xml Include="resource\fur.mtg" />
     <Xml Include="resource\Fur.xml" />
     <Xml Include="resource\NightSky.xml" />

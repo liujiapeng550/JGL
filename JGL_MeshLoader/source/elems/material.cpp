@@ -48,8 +48,11 @@ bool Material::update_shader_params(nshaders::Shader* shader)
 	}
 	int tex_index = 0;
 	for (auto it : mTexture_map) {
-		shader->set_i1(GL_TEXTURE0 + tex_index, it.first);
+		//给纹理采样器分配一个位置值
+		shader->set_i1(tex_index, it.first);
+		//激活纹理单元，绑定纹理到激活的纹理单元
 		shader->set_texture(GL_TEXTURE0 + tex_index, GL_TEXTURE_2D,it.second.first);
+		tex_index++;
 	}
 	return true;
 }
